@@ -1,0 +1,7 @@
+Android
+=====
+
+The following instructions explain how to start developing this project in Android using Eclipse. The first thing to do is to open a terminal and type "cordova create src" to create a cordova template project. Now enter in the src folder (cd src) and write "cordova platform add android" to create the android project. Return to the main folder and clone this repository. Once this is done you can open Eclipse and add the project, File->New->Other->Android->Android Project from Existing Code. From the main folder go to src (RTRTA/src), select both projects (Helloworld and Helloworld-CordovaLib) and click on Finish. The first project is the RTRTA main project and the second one is a library which is necessary to run the application on Android. Now you should be able to start developing.
+
+If you want to change the name of the projects in Eclipse on the Package Explorer right click on the HelloCordova project. Go to Refactor->Rename and write RTRTA and click Ok. Repeat the process with the library project.
+
