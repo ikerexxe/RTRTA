@@ -1,0 +1,60 @@
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFFFFF;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    text-transform:uppercase;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+h2 {
+	font-size:16px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding-top:5%;
+    text-align:center;
+}
+
+.button {
+	text-align:center;
+	padding-top:5%;
+}
+
+form{
+	padding-top: 3%;
+}
+
+input{
+	background-color: #d5d1d1;
+	border-color: white;
+	border-style: solid;
+	height: 30px;
+	width: 150px;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
