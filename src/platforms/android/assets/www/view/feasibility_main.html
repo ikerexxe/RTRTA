@@ -51,7 +51,7 @@
 				var calc = new FeasibilityCalculations(document.getElementById("type").selectedIndex, document.getElementById("taskNumber").value);
 				calc.calculations();
 				objSerialized = JSON.stringify(calc);
-				sessionStorage.setItem('calc', objSerialized);
+				sessionStorage.setItem('feasibility', objSerialized);
 			}
 		</script>
     </body>
