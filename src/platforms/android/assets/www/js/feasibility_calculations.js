@@ -43,7 +43,7 @@ function rmaCalculations(){
 	result = taskNumber * (Math.pow(2, 1/taskNumber) - 1);
 	this.upperResult = result;
 	
-	if(this.sumResult <= this.upperResult){
+	if(this.sumResult < this.upperResult){
 		this.bResult = true;
 	}else{
 		this.bResult = false;
