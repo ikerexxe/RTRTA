@@ -26,7 +26,6 @@ function calculations(){
 	
 	this.period = period;
 	this.execTime = execTime;
-	//this.taskNumber = taskNumber;
 	
 	if(this.type==0){
 		this.rmaCalculations();
@@ -52,7 +51,13 @@ function rmaCalculations(){
 }
 
 function edfCalculations(){
+	this.summation();
 	
+	if(this.sumResult <= 1){
+		this.bResult = true;
+	}else{
+		this.bResult = false;
+	}
 }
 
 function summation(){
