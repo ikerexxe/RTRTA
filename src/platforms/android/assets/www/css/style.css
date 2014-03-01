@@ -32,7 +32,7 @@ h2 {
 
 .button {
 	text-align:center;
-	padding-top:5%;
+	margin: 5%;
 }
 
 form{
@@ -45,6 +45,31 @@ input{
 	border-style: solid;
 	height: 30px;
 	width: 150px;
+}
+
+.text{
+	background-color: #eaeaea;
+	text-align: right;
+	height: 90%;
+	width: 50px;
+}
+
+.feasibility_type{
+	margin-top: 2%;
+}
+
+.feasibility_type table{
+	margin: 0 auto;
+	text-align: left;
+}
+
+.feasibility_table{
+	margin-top: 2%;
+}
+
+.feasibility_table table{
+	margin: 0 auto;
+	text-align: right;
 }
 
 @keyframes fade {

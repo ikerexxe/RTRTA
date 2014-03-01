@@ -7,9 +7,52 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <title>Feasibility analysis input</title>
-        <script type="text/javascript" src="./js/cordova.js"></script>
+<!--         <script type="text/javascript" src="../js/cordova.js"></script> -->
+        <script type="text/javascript" src="../js/table.js"></script>
+        <script type="text/javascript" src="../js/feasibility_calculations.js"></script>
     </head>
     <body>
     	<h1>Feasibility analysis</h1>
+    	<h2>Insert the information about the task set</h2>
+    	<div class="feasibility_type">
+	    	<table>
+	    		<tr>
+	    			<td>
+	    				<p>Scheduler type: </p>
+	    			</td>
+	    			<td>
+	    				<form>
+							<select id="type">
+								<option value="RMA">RMA</option>
+								<option value="EDF">EDF</option>
+							</select>
+						</form>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<p>Number of tasks: </p>
+	    			</td>
+	    			<td>
+	    				<input class="text" id="taskNumber" type="number" onchange="drawFeasibilityTable(this.value)" value="0">
+	    			</td>
+	    		</tr>
+	    	</table>
+    	</div>
+    	<div class="feasibility_table" id="feasibility_table">
+    	</div>
+    	<div class="button">
+ 		    <form onclick="calculate()" action="feasibility_results.html">
+				<input type="submit" value="Calculate">
+			</form>
+		</div>
+		<script type="text/javascript">
+			function calculate(){
+				var calc = new FeasibilityCalculations(document.getElementById("type").selectedIndex, document.getElementById("taskNumber").value);
+				calc.calculations();
+				objSerialized = JSON.stringify(calc);
+				sessionStorage.setItem('calc', objSerialized);
+			}
+		</script>
     </body>
 </html>
