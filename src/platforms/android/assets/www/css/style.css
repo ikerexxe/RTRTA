@@ -48,6 +48,22 @@ p {
     text-align:center;
 }
 
+table, th, td
+{
+	border: 1px solid MediumBlue;
+}
+
+table
+{
+	border-collapse: collapse;
+}
+
+th
+{
+	background-color: MediumBlue;
+	color: white;
+}
+
 .button {
 	text-align:center;
 	margin: 5%;
@@ -77,8 +93,14 @@ input{
 }
 
 .feasibility_type table{
+	
 	margin: 0 auto;
 	text-align: left;
+}
+
+.feasibility_type table, td
+{
+	border: none;
 }
 
 .feasibility_table{

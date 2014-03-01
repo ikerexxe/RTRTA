@@ -2,7 +2,7 @@
 function drawFeasibilityTable(taskNumber){
 	var div = document.getElementById("feasibility_table");
 	var i = 0, j = 1;
-	var text = "<table><tr><td>Task</td><td>T</td><td>C</td></tr>";
+	var text = "<table><tr><th>Task</th><th>T</th><th>C</th></tr>";
 	
 	if(taskNumber>0){
 		for(i; i < taskNumber; i++){
