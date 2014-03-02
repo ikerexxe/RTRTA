@@ -1,19 +1,7 @@
 #################
 ## Android
 #################
-src/merges
-src/platforms/android/.classpath
-src/platforms/android/.project
-src/platforms/android/.settings/org.eclipse.jdt.core.prefs
-src/platforms/android/bin
-src/platforms/android/cordova
-src/platforms/android/CordovaLib
-src/platforms/android/gen
-src/platforms/android/libs
-src/platforms/android/src
-src/platforms/android/local.properties
-src/platforms/android/proguard-project.txt
-src/platforms/android/project.properties
 src/www
 src/.cordova
-
+src/platforms/android/CordovaLib/bin/
+src/platforms/android/bin/
