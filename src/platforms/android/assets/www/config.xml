@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="io.cordova.hellocordova" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>RTRTA</name>
+    <description>
+        Mobile multiplatform application developed using HTML+CSS+JavaScript to calculate real-time response time analysis.
+    </description>
+    <author email="ikerpedrosam@gmail.com" href="http://www.github.com/ikerexxe">
+        Iker Pedrosa
+    </author>
+    <content src="view/index.html" />
+    <access origin="*" />
+</widget>

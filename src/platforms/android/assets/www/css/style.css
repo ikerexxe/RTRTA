@@ -1,0 +1,133 @@
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFFFFF;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    text-transform:uppercase;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+h2 {
+	font-size:16px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding-top:5%;
+    text-align:center;
+}
+
+h3 {
+	font-size:14px;
+	font-weight:bold;
+    margin:0px;
+    overflow:visible;
+    padding-top:5%;
+    text-align:center;
+}
+
+p {
+	font-size:14px;
+	font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding-top:5%;
+    text-align:center;
+}
+
+table, th, td
+{
+	border: 1px solid MediumBlue;
+}
+
+table
+{
+	border-collapse: collapse;
+}
+
+th
+{
+	background-color: MediumBlue;
+	color: white;
+}
+
+.button {
+	text-align:center;
+	margin: 5%;
+}
+
+form{
+	padding-top: 3%;
+}
+
+input{
+	background-color: #d5d1d1;
+	border-color: white;
+	border-style: solid;
+	height: 30px;
+	width: 150px;
+}
+
+input[type=submit]{
+	background: #177ac6;   
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	color: white;
+}
+
+.text{
+	background-color: #eaeaea;
+	text-align: right;
+	height: 90%;
+	width: 50px;
+}
+
+.feasibility_type{
+	margin-top: 2%;
+}
+
+.feasibility_type table{
+	
+	margin: 0 auto;
+	text-align: left;
+}
+
+.feasibility_type table, td
+{
+	border: none;
+}
+
+.feasibility_table{
+	margin-top: 2%;
+}
+
+.feasibility_table table{
+	margin: 0 auto;
+	text-align: right;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
