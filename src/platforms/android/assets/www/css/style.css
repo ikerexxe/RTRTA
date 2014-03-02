@@ -81,6 +81,14 @@ input{
 	width: 150px;
 }
 
+input[type=submit]{
+	background: #177ac6;   
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	color: white;
+}
+
 .text{
 	background-color: #eaeaea;
 	text-align: right;
