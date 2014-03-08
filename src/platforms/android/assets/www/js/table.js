@@ -20,3 +20,47 @@ function drawFeasibilityTable(taskNumber){
 		div.innerHTML = text;
 	}
 }
+
+function drawUniprocessorTable(type, priority, resources, instances, taskNumber){
+	var div = document.getElementById("uniprocessor_table");
+	var text;
+	var i, j = 1;
+	
+	if(type==0){
+		if(priority==0){
+			text = "<table><tr><th>Task</th><th>Priority</th><th>T</th><th>C</th><th>D</th>";
+		}else{
+			
+		}
+		
+		if(resources==0){
+			text += "</tr>";
+		}else{
+			
+		}
+		
+		for(i = 1; (i-1) < taskNumber; i++){
+			text += "<tr><td>T"+i+"</td>";
+			if(priority==0){
+				text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			}
+			j++;
+			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			j++;
+			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			j++;
+			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			j++;
+			if(resources==0){
+				text += "</tr>";
+			}else{
+				
+			}
+		}
+		text += "</table>";
+	}else{
+		
+	}
+	
+	div.innerHTML = text;
+}

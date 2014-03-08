@@ -56,6 +56,7 @@ table, th, td
 table
 {
 	border-collapse: collapse;
+	margin: 0 auto;
 }
 
 th
@@ -105,7 +106,6 @@ select{
 }
 
 .feasibility_type table{
-	margin: 0 auto;
 	text-align: left;
 }
 
@@ -119,7 +119,6 @@ select{
 }
 
 .feasibility_table table{
-	margin: 0 auto;
 	text-align: right;
 }
 
@@ -128,13 +127,20 @@ select{
 }
 
 .uniprocessor_type table{
-	margin: 0 auto;
 	text-align: left;
 }
 
 .uniprocessor_type table, td
 {
 	border: none;
+}
+
+.uniprocessor_table{
+	margin-top: 2%;
+}
+
+.uniprocessor_table table{
+	text-align: right;
 }
 
 .instances{
