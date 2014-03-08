@@ -48,7 +48,12 @@
 		</div>
 		<script type="text/javascript">
 			function calculate(){
-				var calc = new FeasibilityCalculations(document.getElementById("type").selectedIndex, document.getElementById("taskNumber").value);
+				var tmp, type, taskNumber;
+				tmp = document.getElementById("type");
+				type = tmp[tmp.selectedIndex].text;
+				taskNumber = document.getElementById("taskNumber").value;
+				
+				var calc = new FeasibilityCalculations(type, taskNumber);
 				calc.calculations();
 				objSerialized = JSON.stringify(calc);
 				sessionStorage.setItem('feasibility', objSerialized);

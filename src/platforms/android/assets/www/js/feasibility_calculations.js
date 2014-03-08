@@ -27,7 +27,7 @@ function calculations(){
 	this.period = period;
 	this.execTime = execTime;
 	
-	if(this.type==0){
+	if(this.type=="RMA"){
 		this.rmaCalculations();
 	}else{
 		this.edfCalculations();
