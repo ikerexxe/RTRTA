@@ -78,7 +78,7 @@ input{
 	border-color: white;
 	border-style: solid;
 	height: 30px;
-	width: 150px;
+	width: 200px;
 }
 
 input[type=submit]{
@@ -93,7 +93,11 @@ input[type=submit]{
 	background-color: #eaeaea;
 	text-align: right;
 	height: 90%;
-	width: 50px;
+	width: 67px;
+}
+
+select{
+	width: 70px;
 }
 
 .feasibility_type{
@@ -101,7 +105,6 @@ input[type=submit]{
 }
 
 .feasibility_type table{
-	
 	margin: 0 auto;
 	text-align: left;
 }
@@ -118,6 +121,24 @@ input[type=submit]{
 .feasibility_table table{
 	margin: 0 auto;
 	text-align: right;
+}
+
+.uniprocessor_type{
+	margin-top: 2%;
+}
+
+.uniprocessor_type table{
+	margin: 0 auto;
+	text-align: left;
+}
+
+.uniprocessor_type table, td
+{
+	border: none;
+}
+
+.instances{
+	width: 200px;
 }
 
 @keyframes fade {

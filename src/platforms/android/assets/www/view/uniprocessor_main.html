@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <title>Feasibility analysis input</title>
+<!--         <script type="text/javascript" src="../js/cordova.js"></script> -->
+        <script type="text/javascript" src="../js/monoprocessor_calculations.js"></script>
+    </head>
+    <body>
+    	<h1>Uniprocessor response time analysis</h1>
+    	<h2>Insert the information about the scheduling type</h2>
+    	<div class="uniprocessor_type">
+	    	<table>
+	    		<tr>
+	    			<td>
+	    				<p>Scheduler type: </p>
+	    			</td>
+	    			<td>
+	    				<form>
+							<select class="checkbox" id="type">
+								<option value="RMA">RMA</option>
+							</select>
+						</form>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<p>Priority type: </p>
+	    			</td>
+	    			<td>
+	    				<form>
+							<select id="priority">
+								<option value="Explicit">Explicit</option>
+							</select>
+						</form>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<p>Shared resources: </p>
+	    			</td>
+	    			<td>
+	    				<form>
+							<select id="resources">
+								<option value="No">No</option>
+							</select>
+						</form>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<p class="instances">Number of instances of a task in the same period: </p>
+	    			</td>
+	    			<td>
+	    				<form>
+							<select id="instances">
+								<option value="1">1</option>
+							</select>
+						</form>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<p>Number of tasks: </p>
+	    			</td>
+	    			<td>
+	    				<input class="text" id="taskNumber" type="number" onclick="this.select()" value="0">
+	    			</td>
+	    		</tr>
+	    	</table>
+    	</div>
+    	<div class="button">
+ 		    <form onclick="setData()" action="uniprocessor_tasks_information.html">
+				<input type="submit" value="Next">
+			</form>
+		</div>
+		<script type="text/javascript">
+			function setData(){
+				var type = document.getElementById("type").selectedIndex;
+				var priority = document.getElementById("priority").selectedIndex;
+				var resources = document.getElementById("resources").selectedIndex;
+				var instances = document.getElementById("instances").selectedIndex;
+				var taskNumber = document.getElementById("taskNumber").value;
+				var calc = new UniprocessorCalculations(type, priority, resources, instances, taskNumber);
+				
+				objSerialized = JSON.stringify(calc);
+				sessionStorage.setItem('uniprocessor', objSerialized);
+			}
+		</script>
+    </body>
+</html>
