@@ -20,3 +20,6 @@ where Ci is the worst-case execution time for task i and Ti is the period of tas
 ##Sources
 
 The main source for the development of this application has been the subject Real Time Systems given by Xabier Elkorobarrutia in Mondragon Unibertsitatea.  Which, of course, has based the subject in articles written by N.C. Audsley, A. Burns, M. F. Richardson, A. J. Wellings, C.L. Liu, James W. Layland...
+
+#Community
+There is a google plus community dedicated to the development of the application that can be reached following the next link: https://plus.google.com/communities/112182468398242227224
