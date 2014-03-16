@@ -6,6 +6,7 @@ function UniprocessorCalculations(type, priority, resources, instances, taskNumb
 	this.instances = instances;
 	this.taskNumber = taskNumber;
 	this.setTasksInformation = setTasksInformation;
+	this.explicitOrdering = explicitOrdering;
 	this.calculations = calculations;
 	this.wCalculations = wCalculations;
 }
@@ -18,30 +19,28 @@ function setTasksInformation(){
 	var period = new Array(taskNumber);
 	var execTime = new Array(taskNumber);
 	var deadline = new Array(taskNumber);
-	var i;
+	var ordering;
+	var i, j;
 	var id;
 	
-	for(i = 1; (i-1) < taskNumber; i++){
-		id = "uni"+((i*4)-2);
-		period[i] = document.getElementById(id).value;
-	}
-	for(i = 1; (i-1) < taskNumber; i++){
-		id = "uni"+((i*4)-1);
-		execTime[i] = document.getElementById(id).value;
-	}
-	
 	if(type == "DMS"){
-		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((i*4));
-			deadline[i] = document.getElementById(id).value;
-		}
-		this.deadline = deadline;
 		if(ifPriority == "Explicit"){
 			for(i = 1; (i-1) < taskNumber; i++){
 				id = "uni"+((i*4)-3);
 				priority[i] = document.getElementById(id).value;
 			}
-			this.priority = priority;
+			ordering = this.explicitOrdering(priority);
+			
+			for(i = 1; (i-1) < taskNumber; i++){
+				id = "uni"+((ordering[i]*4)-3);
+				priority[i] = document.getElementById(id).value;
+				id = "uni"+((ordering[i]*4)-2);
+				period[i] = document.getElementById(id).value;
+				id = "uni"+((ordering[i]*4)-1);
+				execTime[i] = document.getElementById(id).value;
+				id = "uni"+((ordering[i]*4));
+				deadline[i] = document.getElementById(id).value;
+			}			
 		}else{
 			
 		}
@@ -49,8 +48,28 @@ function setTasksInformation(){
 		
 	}
 	
+	this.ordering = ordering;
+	this.priority = priority;
 	this.period = period;
 	this.execTime = execTime;
+	this.deadline = deadline;
+}
+
+function explicitOrdering(priority){
+	var taskNumber = this.taskNumber;
+	var ordering = new Array(taskNumber);
+	var i, j, z;
+	
+	for(i = 1, z = 1; (i - 1) < 100; i++){
+		for(j = 1; (j - 1) < taskNumber; j++){
+			if(priority[j] == i){
+				ordering[z] = j;
+				z++;
+			}
+		}
+	}
+	
+	return ordering;
 }
 
 function calculations(){

@@ -24,7 +24,7 @@ function drawFeasibilityResult(type, bResult, sumResult, upperResult){
 	div.innerHTML = text;
 }
 
-function drawUniprocessorResult(feasible, taskNumber, period, results){
+function drawUniprocessorResult(feasible, taskNumber, ordering, priority, period, results){
 	var div = document.getElementById("uniprocessor_results");
 	var text;
 	
@@ -34,20 +34,21 @@ function drawUniprocessorResult(feasible, taskNumber, period, results){
 		text = "<h3>The task set isn't feasible.</h3>";
 	}
 	
-	text += drawUniprocessorCalculations(taskNumber, period, results);
+	text += drawUniprocessorCalculations(taskNumber, ordering, priority, period, results);
 	
 	div.innerHTML = text;
 }
 
-function drawUniprocessorCalculations(taskNumber, period, results){
+function drawUniprocessorCalculations(taskNumber, ordering, priority, period, results){
 	var i;
 	var text;
 	
-	text = "<table><tr><th>Task</th><th>Result</br>R <= D</th></tr>";
+	text = "<table><tr><th>Task</th><th>Priority</th><th>Result</br>R <= D</th></tr>";
 	
 	for(i = 1; (i - 1) < taskNumber; i++){
 		text += "<tr>" +
-				"<td>T"+i+"</td>";
+				"<td>T"+ordering[i]+"</td>" +
+				"<td>"+priority[i]+"</td>";
 		if(results[i] <= period[i]){
 			text += "<td>"+results[i]+" <= "+period[i]+"</td>";
 		}else{
