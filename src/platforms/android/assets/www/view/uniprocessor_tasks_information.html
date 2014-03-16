@@ -46,6 +46,9 @@
 				
  				calc.setTasksInformation();
 				calc.calculations();
+				
+				objSerialized = JSON.stringify(calc);
+				sessionStorage.setItem('uniprocessor', objSerialized);
 			}
 		</script>
     </body>

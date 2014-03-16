@@ -85,9 +85,13 @@ function wCalculations(contTask){
 		i++;
 		w[i] = parseInt(execTime[contTask]);
 		for(j = 1 ; j < contTask; j++){
-			w[i] += parseInt(Math.ceil(w[i-1]/period[j]) * execTime[j];
+			w[i] += parseInt(Math.ceil(w[i-1]/period[j]) * execTime[j]);
 		}
-	}while(w[i] != w[i-1]);
+	}while(w[i] != w[i-1] && i < 100);
+	
+	if(i == 99){
+		w[i] = -1;
+	}
 	
 	return w[i];
 }
