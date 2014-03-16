@@ -1,6 +1,6 @@
 
 function drawFeasibilityResult(type, bResult, sumResult, upperResult){
-	var div = document.getElementById("feasibility_result");
+	var div = document.getElementById("feasibility_results");
 	var text;
 	
 	if(type=="RMA"){
@@ -23,3 +23,4 @@ function drawFeasibilityResult(type, bResult, sumResult, upperResult){
 	
 	div.innerHTML = text;
 }
+
