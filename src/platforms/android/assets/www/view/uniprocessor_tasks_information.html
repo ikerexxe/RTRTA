@@ -31,13 +31,21 @@
     		</script>
     	</div>
     	<div class="button">
- 		    <form onclick="calculare()" action="uniprocessor_results.html">
+  		    <form onclick="calculate()" action="uniprocessor_results.html">
 				<input type="submit" value="Calculate">
 			</form>
 		</div>
 		<script type="text/javascript">
 			function calculate(){
+				var calcOld;
+				var calc;
 				
+				objSerialized = sessionStorage.getItem('uniprocessor');
+				calcOld = JSON.parse(objSerialized);
+				calc = new UniprocessorCalculations(calcOld.type, calcOld.priority, calcOld.resources, calcOld.instances, calcOld.taskNumber);
+				
+ 				calc.setTasksInformation();
+				calc.calculations();
 			}
 		</script>
     </body>

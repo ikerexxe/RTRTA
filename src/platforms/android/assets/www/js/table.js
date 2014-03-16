@@ -26,7 +26,7 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber)
 	var text;
 	var i, j = 1;
 	
-	if(type=="RMA"){
+	if(type=="DMS"){
 		if(priority=="Explicit"){
 			text = "<table><tr><th>Task</th><th>Priority</th><th>T</th><th>C</th><th>D</th>";
 		}else{
