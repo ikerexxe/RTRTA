@@ -3,7 +3,7 @@ function drawFeasibilityResult(type, bResult, sumResult, upperResult){
 	var div = document.getElementById("feasibility_results");
 	var text;
 	
-	if(type=="RMA"){
+	if(type=="DMS"){
 		if(bResult==true){
 			text = "<h3>The task set is feasible.</h3>";
 			text += "<p>"+sumResult+"<"+upperResult+"</p>";

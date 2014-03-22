@@ -45,7 +45,25 @@ function setTasksInformation(){
 			
 		}
 	}else{
-		
+		if(ifPriority == "Explicit"){
+			for(i = 1; (i-1) < taskNumber; i++){
+				id = "uni"+((i*3)-2);
+				priority[i] = document.getElementById(id).value;
+			}
+			ordering = this.explicitOrdering(priority);
+			
+			for(i = 1; (i-1) < taskNumber; i++){
+				id = "uni"+((ordering[i]*3)-2);
+				priority[i] = document.getElementById(id).value;
+				id = "uni"+((ordering[i]*3)-1);
+				period[i] = document.getElementById(id).value;
+				id = "uni"+((ordering[i]*3));
+				execTime[i] = document.getElementById(id).value;
+				deadline[i] = period[i];
+			}
+		}else{
+			
+		}
 	}
 	
 	this.ordering = ordering;
