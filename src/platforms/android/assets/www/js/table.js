@@ -27,11 +27,7 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber)
 	var i, j = 1;
 	
 	if(type=="DMS"){
-		if(priority=="Explicit"){
-			text = "<table><tr><th>Task</th><th>Priority</th><th>T</th><th>C</th><th>D</th>";
-		}else{
-			
-		}
+		text = "<table><tr><th>Task</th><th>T</th><th>C</th>";
 		
 		if(resources=="No"){
 			text += "</tr>";
@@ -41,11 +37,6 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber)
 		
 		for(i = 1; (i-1) < taskNumber; i++){
 			text += "<tr><td>T"+i+"</td>";
-			if(priority=="Explicit"){
-				text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
-			}
-			j++;
-			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
 			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
@@ -59,11 +50,7 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber)
 		}
 		text += "</table>";
 	}else{
-		if(priority=="Explicit"){
-			text = "<table><tr><th>Task</th><th>Priority</th><th>T</th><th>C</th>";
-		}else{
-			
-		}
+		text = "<table><tr><th>Task</th><th>T</th><th>C</th><th>D</th>";
 		
 		if(resources=="No"){
 			text += "</tr>";
@@ -73,10 +60,9 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber)
 		
 		for(i = 1; (i-1) < taskNumber; i++){
 			text += "<tr><td>T"+i+"</td>";
-			if(priority=="Explicit"){
-				text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
-				j++;
-			}
+			j++;
+			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			j++;
 			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
 			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";

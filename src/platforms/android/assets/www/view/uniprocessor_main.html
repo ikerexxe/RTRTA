@@ -30,18 +30,6 @@
 	    		</tr>
 	    		<tr>
 	    			<td>
-	    				<p>Priority type: </p>
-	    			</td>
-	    			<td>
-	    				<form>
-							<select id="priority">
-								<option value="Explicit">Explicit</option>
-							</select>
-						</form>
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
 	    				<p>Shared resources: </p>
 	    			</td>
 	    			<td>
@@ -85,8 +73,8 @@
 				var tmp, type, priority, resources, instances, taskNumber;
 				tmp = document.getElementById("type");
 				type = tmp[tmp.selectedIndex].text;
-				tmp = document.getElementById("priority");
-				priority = tmp[tmp.selectedIndex].text;
+//				tmp = document.getElementById("priority");
+//				priority = tmp[tmp.selectedIndex].text;
 				tmp = document.getElementById("resources");
 				resources = tmp[tmp.selectedIndex].text;
 				tmp = document.getElementById("instances");

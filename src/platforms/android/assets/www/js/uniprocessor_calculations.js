@@ -6,6 +6,7 @@ function UniprocessorCalculations(type, priority, resources, instances, taskNumb
 	this.instances = instances;
 	this.taskNumber = taskNumber;
 	this.setTasksInformation = setTasksInformation;
+	this.implicitOrdering = implicitOrdering;
 	this.explicitOrdering = explicitOrdering;
 	this.calculations = calculations;
 	this.wCalculations = wCalculations;
@@ -24,45 +25,34 @@ function setTasksInformation(){
 	var id;
 	
 	if(type == "DMS"){
-		if(ifPriority == "Explicit"){
-			for(i = 1; (i-1) < taskNumber; i++){
-				id = "uni"+((i*4)-3);
-				priority[i] = document.getElementById(id).value;
-			}
-			ordering = this.explicitOrdering(priority);
-			
-			for(i = 1; (i-1) < taskNumber; i++){
-				id = "uni"+((ordering[i]*4)-3);
-				priority[i] = document.getElementById(id).value;
-				id = "uni"+((ordering[i]*4)-2);
-				period[i] = document.getElementById(id).value;
-				id = "uni"+((ordering[i]*4)-1);
-				execTime[i] = document.getElementById(id).value;
-				id = "uni"+((ordering[i]*4));
-				deadline[i] = document.getElementById(id).value;
-			}			
-		}else{
-			
+		for(i = 1; (i-1) < taskNumber; i++){
+			id = "uni"+((i*3)-1);
+			period[i] = document.getElementById(id).value;
+		}
+		ordering = this.implicitOrdering(period);
+		
+		for(i = 1; (i-1) < taskNumber; i++){
+			id = "uni"+((ordering[i]*3)-1);
+			period[i] = document.getElementById(id).value;
+			id = "uni"+((ordering[i]*3));
+			execTime[i] = document.getElementById(id).value;
+			priority[i] = i;
+			deadline[i] = period[i];
 		}
 	}else{
-		if(ifPriority == "Explicit"){
-			for(i = 1; (i-1) < taskNumber; i++){
-				id = "uni"+((i*3)-2);
-				priority[i] = document.getElementById(id).value;
-			}
-			ordering = this.explicitOrdering(priority);
-			
-			for(i = 1; (i-1) < taskNumber; i++){
-				id = "uni"+((ordering[i]*3)-2);
-				priority[i] = document.getElementById(id).value;
-				id = "uni"+((ordering[i]*3)-1);
-				period[i] = document.getElementById(id).value;
-				id = "uni"+((ordering[i]*3));
-				execTime[i] = document.getElementById(id).value;
-				deadline[i] = period[i];
-			}
-		}else{
-			
+		for(i = 1; (i-1) < taskNumber; i++){
+			id = "uni"+((i*4));
+			deadline[i] = document.getElementById(id).value;
+		}
+		ordering = this.implicitOrdering(deadline);
+		
+		for(i = 1; (i-1) < taskNumber; i++){
+			id = "uni"+((ordering[i]*4)-2);
+			period[i] = document.getElementById(id).value;
+			id = "uni"+((ordering[i]*4)-1);
+			execTime[i] = document.getElementById(id).value;
+			priority[i] = i;
+			deadline[i] = period[i];
 		}
 	}
 	
@@ -71,6 +61,23 @@ function setTasksInformation(){
 	this.period = period;
 	this.execTime = execTime;
 	this.deadline = deadline;
+}
+
+function implicitOrdering(deadline){
+	var taskNumber = this.taskNumber;
+	var ordering = new Array(taskNumber);
+	var i, j, z;
+	
+	for(i = 1, z = 1; (i - 1) < 100; i++){
+		for(j = 1; (j - 1) < taskNumber; j++){
+			if(deadline[j] == i){
+				ordering[z] = j;
+				z++;
+			}
+		}
+	}
+	
+	return ordering;
 }
 
 function explicitOrdering(priority){
