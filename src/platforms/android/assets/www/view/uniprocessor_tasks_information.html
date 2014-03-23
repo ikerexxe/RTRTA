@@ -16,7 +16,7 @@
     	<h2>Insert the information about the task set</h2>
     	<div class="task_set_table" id="uniprocessor_table">
     		<script type="text/javascript">
-	    		var type, priority, resources, instances, taskNumber;
+	    		var type, priority, resources, instances, taskNumber, resourcesNumber;
 				var calc;
 				
 				objSerialized = sessionStorage.getItem('uniprocessor');
@@ -26,8 +26,9 @@
 				resources = calc.resources;
 				instances = calc.instances;
 				taskNumber = calc.taskNumber;
+				resourcesNumber = calc.resourcesNumber;
 				
- 				drawUniprocessorTable(type, priority, resources, instances, taskNumber);
+ 				drawUniprocessorTable(type, priority, resources, instances, taskNumber, resourcesNumber);
     		</script>
     	</div>
     	<div class="button">

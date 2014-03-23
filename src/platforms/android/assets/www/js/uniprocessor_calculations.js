@@ -1,10 +1,11 @@
 
-function UniprocessorCalculations(type, priority, resources, instances, taskNumber){
+function UniprocessorCalculations(type, priority, resources, instances, taskNumber, resourcesNumber){
 	this.type = type;
 	this.priority = priority;
 	this.resources = resources;
 	this.instances = instances;
 	this.taskNumber = taskNumber;
+	this.resourcesNumber = resourcesNumber;
 	this.setTasksInformation = setTasksInformation;
 	this.implicitOrdering = implicitOrdering;
 	this.explicitOrdering = explicitOrdering;

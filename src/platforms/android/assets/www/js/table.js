@@ -21,19 +21,21 @@ function drawFeasibilityTable(taskNumber){
 	}
 }
 
-function drawUniprocessorTable(type, priority, resources, instances, taskNumber){
+function drawUniprocessorTable(type, priority, resources, instances, taskNumber, resourcesNumber){
 	var div = document.getElementById("uniprocessor_table");
 	var text;
 	var i, j = 1;
+	var resourcesCount;
 	
 	if(type=="DMS"){
 		text = "<table><tr><th>Task</th><th>T</th><th>C</th>";
 		
-		if(resources=="No"){
-			text += "</tr>";
-		}else{
-			
+		if(resources!="No"){
+			for(resourcesCount = 1; (resourcesCount-1) < resourcesNumber; resourcesCount++){
+				text+= "<th>R"+resourcesCount+"</th>";
+			}
 		}
+		text += "</tr>";
 		
 		for(i = 1; (i-1) < taskNumber; i++){
 			text += "<tr><td>T"+i+"</td>";
@@ -42,21 +44,24 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber)
 			j++;
 			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
-			if(resources=="No"){
-				text += "</tr>";
-			}else{
-				
+			if(resources!="No"){
+				for(resourcesCount = 1; (resourcesCount-1) < resourcesNumber; resourcesCount++){
+					text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+					j++;
+				}
 			}
+			text += "</tr>";
 		}
 		text += "</table>";
 	}else{
 		text = "<table><tr><th>Task</th><th>T</th><th>C</th><th>D</th>";
 		
-		if(resources=="No"){
-			text += "</tr>";
-		}else{
-			
+		if(resources!="No"){
+			for(resourcesCount = 1; (resourcesCount-1) < resourcesNumber; resourcesCount++){
+				text+= "<th>R"+resourcesCount+"</th>";
+			}
 		}
+		text += "</tr>";
 		
 		for(i = 1; (i-1) < taskNumber; i++){
 			text += "<tr><td>T"+i+"</td>";
@@ -67,11 +72,13 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber)
 			j++;
 			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
-			if(resources=="No"){
-				text += "</tr>";
-			}else{
-				
+			if(resources!="No"){
+				for(resourcesCount = 1; (resourcesCount-1) < resourcesNumber; resourcesCount++){
+					text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+					j++;
+				}
 			}
+			text += "</tr>";
 		}
 		text += "</table>";
 	}
