@@ -8,9 +8,9 @@ function drawFeasibilityTable(taskNumber){
 		for(i; i < taskNumber; i++){
 			text += "<tr>" +
 					"<td>T"+(i+1)+"</td>" +
-					"<td>"+"<input class='text' id='fea"+j+"' type='number' onclick='this.select()' value='0'>"+"</td>";
+					"<td>"+"<input class='text_task_information' id='fea"+j+"' type='number' onclick='this.select()' value='0'>"+"</td>";
 			j++;
-			text +=	"<td>"+"<input class='text' id='fea"+j+"' type='number' onclick='this.select()' value='0'>"+"</td>" +
+			text +=	"<td>"+"<input class='text_task_information' id='fea"+j+"' type='number' onclick='this.select()' value='0'>"+"</td>" +
 					"</tr>";
 			j++;
 		}
@@ -40,13 +40,13 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber,
 		for(i = 1; (i-1) < taskNumber; i++){
 			text += "<tr><td>T"+i+"</td>";
 			j++;
-			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			text += "<td><input class='text_task_information' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
-			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			text += "<td><input class='text_task_information' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
 			if(resources!="No"){
 				for(resourcesCount = 1; (resourcesCount-1) < resourcesNumber; resourcesCount++){
-					text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+					text += "<td><input class='text_task_information' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 					j++;
 				}
 			}
@@ -66,15 +66,15 @@ function drawUniprocessorTable(type, priority, resources, instances, taskNumber,
 		for(i = 1; (i-1) < taskNumber; i++){
 			text += "<tr><td>T"+i+"</td>";
 			j++;
-			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			text += "<td><input class='text_task_information' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
-			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			text += "<td><input class='text_task_information' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
-			text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+			text += "<td><input class='text_task_information' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 			j++;
 			if(resources!="No"){
 				for(resourcesCount = 1; (resourcesCount-1) < resourcesNumber; resourcesCount++){
-					text += "<td><input class='text' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
+					text += "<td><input class='text_task_information' id='uni"+j+"' type='number' onclick='this.select()' value='0'></td>";
 					j++;
 				}
 			}

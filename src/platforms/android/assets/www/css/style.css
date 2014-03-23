@@ -87,6 +87,13 @@ input{
 	width: 67px;
 }
 
+.text_task_information{
+	background-color: #eaeaea;
+	text-align: right;
+	height: 90%;
+	width: 35px;
+}
+
 /* Checkbuttons */
 
 select{
