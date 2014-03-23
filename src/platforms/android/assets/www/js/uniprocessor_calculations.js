@@ -5,18 +5,25 @@ function UniprocessorCalculations(type, priority, resources, instances, taskNumb
 	this.resources = resources;
 	this.instances = instances;
 	this.taskNumber = taskNumber;
-	this.resourcesNumber = resourcesNumber;
 	this.setTasksInformation = setTasksInformation;
 	this.implicitOrdering = implicitOrdering;
 	this.explicitOrdering = explicitOrdering;
 	this.calculations = calculations;
 	this.wCalculations = wCalculations;
+	
+	if(resources != "No"){
+		this.resourcesNumber = parseInt(resourcesNumber);
+	}else{
+		this.resourcesNumber = 0;
+	}
 }
 
 function setTasksInformation(){
 	var taskNumber = this.taskNumber;
 	var ifPriority = this.priority;
 	var type = this.type;
+	var resources = this.resources;
+	var resourcesNumber = this.resourcesNumber;
 	var priority = new Array(taskNumber);
 	var period = new Array(taskNumber);
 	var execTime = new Array(taskNumber);
@@ -25,35 +32,61 @@ function setTasksInformation(){
 	var i, j;
 	var id;
 	
+	if(resources != "No"){
+		var resourcesMatrix = new Array(taskNumber);
+		for (i = 1; (i-1) < taskNumber; i++){
+			resourcesMatrix[i] = new Array(resourcesNumber);
+		}
+	}
+	
 	if(type == "DMS"){
 		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((i*3)-1);
+			id = "uni"+((i*(3+resourcesNumber))-(2+(resourcesNumber-1)));
 			period[i] = document.getElementById(id).value;
 		}
 		ordering = this.implicitOrdering(period);
 		
 		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((ordering[i]*3)-1);
+			id = "uni"+((ordering[i]*(3+resourcesNumber))-(2+(resourcesNumber-1)));
 			period[i] = document.getElementById(id).value;
-			id = "uni"+((ordering[i]*3));
+			id = "uni"+((ordering[i]*(3+resourcesNumber))-(1+(resourcesNumber-1)));
 			execTime[i] = document.getElementById(id).value;
 			priority[i] = i;
 			deadline[i] = period[i];
 		}
+		
+		if(resources != "No"){
+			for (i = 1; (i-1) < taskNumber; i++){
+				for(j = 1; (j-1) < resourcesNumber; j++){
+					id = "uni"+((ordering[i]*(3+resourcesNumber))-((resourcesNumber-j)));
+					resourcesMatrix[i][j] = document.getElementById(id).value;
+				}
+			}
+		}
 	}else{
 		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((i*4));
+			id = "uni"+((i*(4+resourcesNumber))-(1+(resourcesNumber-1)));
 			deadline[i] = document.getElementById(id).value;
 		}
 		ordering = this.implicitOrdering(deadline);
 		
 		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((ordering[i]*4)-2);
+			id = "uni"+((ordering[i]*(4+resourcesNumber))-(3+(resourcesNumber-1)));
 			period[i] = document.getElementById(id).value;
-			id = "uni"+((ordering[i]*4)-1);
+			id = "uni"+((ordering[i]*(4+resourcesNumber))-(2+(resourcesNumber-1)));
 			execTime[i] = document.getElementById(id).value;
 			priority[i] = i;
-			deadline[i] = period[i];
+			id = "uni"+((ordering[i]*(4+resourcesNumber))-(1+(resourcesNumber-1)));
+			deadline[i] = document.getElementById(id).value;
+		}
+		
+		if(resources != "No"){
+			for (i = 1; (i-1) < taskNumber; i++){
+				for(j = 1; (j-1) < resourcesNumber; j++){
+					id = "uni"+((ordering[i]*(4+resourcesNumber))-((resourcesNumber-j)));
+					resourcesMatrix[i][j] = document.getElementById(id).value;
+				}
+			}
 		}
 	}
 	
@@ -62,6 +95,10 @@ function setTasksInformation(){
 	this.period = period;
 	this.execTime = execTime;
 	this.deadline = deadline;
+	
+	if(resources != "No"){
+		this.resourcesMatrix = resourcesMatrix;
+	}
 }
 
 function implicitOrdering(deadline){

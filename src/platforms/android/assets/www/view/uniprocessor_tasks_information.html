@@ -43,7 +43,7 @@
 				
 				objSerialized = sessionStorage.getItem('uniprocessor');
 				calcOld = JSON.parse(objSerialized);
-				calc = new UniprocessorCalculations(calcOld.type, calcOld.priority, calcOld.resources, calcOld.instances, calcOld.taskNumber);
+				calc = new UniprocessorCalculations(calcOld.type, calcOld.priority, calcOld.resources, calcOld.instances, calcOld.taskNumber, calcOld.resourcesNumber);
 				
  				calc.setTasksInformation();
 				calc.calculations();
