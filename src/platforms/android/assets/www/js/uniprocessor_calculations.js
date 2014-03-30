@@ -10,6 +10,7 @@ function UniprocessorCalculations(type, priority, resources, instances, taskNumb
 	this.explicitOrdering = explicitOrdering;
 	this.calculations = calculations;
 	this.wCalculations = wCalculations;
+	this.calculateSharedResources = calculateSharedResources;
 	
 	if(resources != "No"){
 		this.resourcesNumber = parseInt(resourcesNumber);
@@ -157,15 +158,21 @@ function calculations(){
 
 function wCalculations(contTask){
 	var execTime = this.execTime;
+	var resources = this.resources;
 	var period = this.period;
 	var w = new Array(100);
+	var B = 0;
 	var i = 0;
 	var j;
+	
+	if(resources != "No"){
+		B = this.calculateSharedResources(contTask);
+	}
 	
 	w[0] = parseInt(execTime[contTask]);
 	do{
 		i++;
-		w[i] = parseInt(execTime[contTask]);
+		w[i] = parseInt(execTime[contTask]) + B;
 		for(j = 1 ; j < contTask; j++){
 			w[i] += parseInt(Math.ceil(w[i-1]/period[j]) * execTime[j]);
 		}
@@ -175,4 +182,75 @@ function wCalculations(contTask){
 	}while((w[i] != w[i-1]) && (w[i] <= period[i]));
 	
 	return w[i];
+}
+
+function calculateSharedResources(contTask){
+	var taskNumber = this.taskNumber;
+	var resources = this.resources;
+	var resourcesNumber = this.resourcesNumber;
+	var resourcesMatrix = this.resourcesMatrix.slice();
+	var B = 0;
+	var i, j, k, x, y;
+	var max, maxPositionJ, maxPositionK, maxArray;
+	var blocking = false;
+	var tmp;
+	
+	if(taskNumber > resourcesNumber){
+		maxArray = new Array(taskNumber);
+	}else{
+		maxArray = new Array(resourcesNumber);
+	}
+	
+	if(resources == "PIP"){
+		for(i = 1; (taskNumber - contTask) >= i; i++){
+			max = 0;
+			for(j = (contTask + 1); j < resourcesMatrix.length; j++){
+				for(k = 1; k < resourcesMatrix[j].length; k++){
+					if(resourcesMatrix[j][k] > max){
+						for(x = 1; x <= contTask; x++){
+							if(resourcesMatrix[x][k] != 0){
+								blocking = true;
+								break;
+							}
+						}
+						if(blocking){
+							max = parseInt(resourcesMatrix[j][k]);
+							maxPositionJ = j;
+							maxPositionK = k;
+							blocking = false;
+						}
+					}
+				}
+			}
+			maxArray[i] = max;
+			
+			tmp = new Array(resourcesMatrix.length - 1);
+			for(x = 1; x < (resourcesMatrix.length - 1); x++){
+				tmp[x] = new Array(resourcesMatrix[x].length - 1);
+			}
+			
+			x = 1;
+			y = 1;
+			for(j = 1; j < resourcesMatrix.length; j++){
+				for(k = 1; k < resourcesMatrix[j].length; k++){
+					if(j != maxPositionJ && k != maxPositionK){
+						tmp[x][y] = resourcesMatrix[j][k];
+						y++;
+					}
+				}
+				if(j != maxPositionJ){
+					x++;
+					y = 1;
+				}
+			}
+			
+			resourcesMatrix = tmp;
+		}
+		
+		for(i = 1; i < maxArray.length; i++){
+			B += maxArray[i];
+		}
+	}
+	
+	return B;
 }
