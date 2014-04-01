@@ -21,3 +21,23 @@ As said before the calculus are done iteratively and they stop when Wi(n+1) is e
 Ri = Wi(n)
 
 Now, whether the task meets its deadline can be checked, ergo, Ri should be less or equal to Di. If some of the tasks doesn't meet its deadline then the task set is not feasible under that order.
+
+##Shared resources on uniprocessors
+
+Calculation of shared resources is an extension of the the previous model with the difference that it takes into account the execution time of the shared resources. Depending on the protocol being used this execution time varies. The calculus are done iteratively using the following formula:
+
+Wi(n+1) = Ci + Bi + **SUMMATION**[Wi/Tj]*Cj
+
+where Bi is the worst-case execution time for shared resources.
+
+###Priority Inheritance Protocol (PIP)
+
+If the protocol being used is PIP a task can be blocked at most once per each lower level task and at most once per each resource.
+
+###Priority Ceiling Protocol (PCP)
+
+On the contrary if PCP is used the blocking time for a task is bounded by the longer time any lower priority task can use any resource which can be used by a task of equal or higher priority than the actual task.
+
+###Immediate Priority Ceiling Protocol (IPCP)
+
+IPCP has the same properties as PCP regarding to blocking and response time calculus.
