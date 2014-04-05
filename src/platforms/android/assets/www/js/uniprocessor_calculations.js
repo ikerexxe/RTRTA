@@ -211,7 +211,6 @@ function wFinished(w, w_previous, contTask){
 		if((w != w_previous)){
 			finished = true;
 		}
-		//document.write("w "+w+" deadline[contTask] "+deadline[contTask]+" contBusy "+contBusy+"</br>");
 		if(w > deadline[contTask]*contBusy){
 			contBusy++;
 		}
