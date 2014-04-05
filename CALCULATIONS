@@ -41,3 +41,7 @@ On the contrary if PCP is used the blocking time for a task is bounded by the lo
 ###Immediate Priority Ceiling Protocol (IPCP)
 
 IPCP has the same properties as PCP regarding to blocking and response time calculus.
+
+##Busy period
+Let’s assume tasks’ deadlines greater than their periods. Level i busy period is the maximum time for which a processor executes tasks of priority i or higher. The response instant of the q−th job of a task can be calculated by:
+Wi(q) = (q+1)*Ci + **SUMMATION**[Wi(q)/Tj]*Cj
