@@ -16,7 +16,7 @@
     	<h2>Insert the information about the task set</h2>
     	<div class="task_set_table" id="uniprocessor_table">
     		<script type="text/javascript">
-	    		var type, priority, resources, instances, taskNumber, resourcesNumber;
+	    		var type, priority, resources, busy, taskNumber, resourcesNumber;
 				var calc;
 				
 				objSerialized = sessionStorage.getItem('uniprocessor');
@@ -24,11 +24,11 @@
 				type = calc.type;
 				priority = calc.priority;
 				resources = calc.resources;
-				instances = calc.instances;
+				busy = calc.busy;
 				taskNumber = calc.taskNumber;
 				resourcesNumber = calc.resourcesNumber;
 				
- 				drawUniprocessorTable(type, priority, resources, instances, taskNumber, resourcesNumber);
+ 				drawUniprocessorTable(type, priority, resources, busy, taskNumber, resourcesNumber);
     		</script>
     	</div>
     	<div class="button">
@@ -43,7 +43,7 @@
 				
 				objSerialized = sessionStorage.getItem('uniprocessor');
 				calcOld = JSON.parse(objSerialized);
-				calc = new UniprocessorCalculations(calcOld.type, calcOld.priority, calcOld.resources, calcOld.instances, calcOld.taskNumber, calcOld.resourcesNumber);
+				calc = new UniprocessorCalculations(calcOld.type, calcOld.priority, calcOld.resources, calcOld.busy, calcOld.taskNumber, calcOld.resourcesNumber);
 				
  				calc.setTasksInformation();
 				calc.calculations();

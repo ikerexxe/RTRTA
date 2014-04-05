@@ -59,12 +59,13 @@
 				</tr>
 	    		<tr>
 	    			<td>
-	    				<p class="instances">Number of instances of a task in the same period: </p>
+	    				<p class="busy">Busy period: </p>
 	    			</td>
 	    			<td>
 	    				<form>
-							<select id="instances">
-								<option value="1">1</option>
+							<select id="busy">
+								<option value="No">No</option>
+								<option value="Yes">Yes</option>
 							</select>
 						</form>
 	    			</td>
@@ -86,20 +87,20 @@
 		</div>
 		<script type="text/javascript">
 			function setData(){
-				var tmp, type, priority, resources, instances, taskNumber, resourcesNumber;
+				var tmp, type, priority, resources, busy, taskNumber, resourcesNumber;
 				tmp = document.getElementById("type");
 				type = tmp[tmp.selectedIndex].text;
 //				tmp = document.getElementById("priority");
 //				priority = tmp[tmp.selectedIndex].text;
 				tmp = document.getElementById("resources");
 				resources = tmp[tmp.selectedIndex].text;
-				tmp = document.getElementById("instances");
-				instances = tmp[tmp.selectedIndex].text;
+				tmp = document.getElementById("busy");
+				busy = tmp[tmp.selectedIndex].text;
 				taskNumber = document.getElementById("taskNumber").value;
 				tmp = document.getElementById("shared_resources_number");
 				resourcesNumber = tmp[tmp.selectedIndex].text;
 				
-				var calc = new UniprocessorCalculations(type, priority, resources, instances, taskNumber, resourcesNumber);
+				var calc = new UniprocessorCalculations(type, priority, resources, busy, taskNumber, resourcesNumber);
 				objSerialized = JSON.stringify(calc);
 				sessionStorage.setItem('uniprocessor', objSerialized);
 			}
