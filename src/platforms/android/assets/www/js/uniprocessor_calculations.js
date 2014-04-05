@@ -5,11 +5,14 @@ function UniprocessorCalculations(type, priority, resources, busy, taskNumber, r
 	this.resources = resources;
 	this.busy = busy;
 	this.taskNumber = taskNumber;
+	this.maxBusy = 10;
+	
 	this.setTasksInformation = setTasksInformation;
 	this.implicitOrdering = implicitOrdering;
 	this.explicitOrdering = explicitOrdering;
 	this.calculations = calculations;
 	this.wCalculations = wCalculations;
+	this.wFinished = wFinished;
 	this.calculateSharedResources = calculateSharedResources;
 	
 	if(resources != "No"){
@@ -140,6 +143,7 @@ function calculations(){
 	var taskNumber = this.taskNumber;
 	var period = this.period;
 	var deadline = this.deadline;
+	var busy = this.busy;
 	var results = new Array(taskNumber);
 	var feasible = true;
 	
@@ -148,8 +152,14 @@ function calculations(){
 	}
 	
 	for(contTask = 1; (contTask - 1) < taskNumber; contTask++){
-		if(results[contTask] > deadline[contTask]){
-			feasible = false;
+		if(busy == "No"){
+			if(results[contTask] > deadline[contTask]){
+				feasible = false;
+			}
+		}else{
+			if(results[contTask] > deadline[contTask]*this.maxBusy){
+				feasible = false;
+			}
 		}
 	}
 	
@@ -161,29 +171,57 @@ function wCalculations(contTask){
 	var execTime = this.execTime;
 	var resources = this.resources;
 	var period = this.period;
-	var deadline = this.deadline;
 	var w = new Array(100);
 	var B = 0;
 	var i = 0;
 	var j;
+	var contBusy;
 	
 	if(resources != "No"){
 		B = this.calculateSharedResources(contTask);
 	}
 	
+	if(this.busy){
+		this.contBusy = 1;
+	}
+	
 	w[i] = parseInt(execTime[contTask]);
 	do{
+		contBusy = this.contBusy;
 		i++;
-		w[i] = parseInt(execTime[contTask]) + B;
+		w[i] = contBusy*parseInt(execTime[contTask]) + B;
 		for(j = 1 ; j < contTask; j++){
 			w[i] += parseInt(Math.ceil(w[i-1]/period[j]) * execTime[j]);
 		}
-		if(w[i] > deadline[contTask]){
-			w[i] = -1;
-		}
-	}while((w[i] != w[i-1]) && (w[i] <= deadline[contTask]));
+	}while(this.wFinished(w[i], w[i-1], contTask));
 	
 	return w[i];
+}
+
+function wFinished(w, w_previous, contTask){
+	var deadline = this.deadline;
+	var contBusy = this.contBusy;
+	var finished = false;
+	
+	if(busy == "No"){
+		if((w != w_previous) && (w <= deadline[contTask])){
+			finished = true;
+		}
+	}else{
+		if((w != w_previous)){
+			finished = true;
+		}
+		//document.write("w "+w+" deadline[contTask] "+deadline[contTask]+" contBusy "+contBusy+"</br>");
+		if(w > deadline[contTask]*contBusy){
+			contBusy++;
+		}
+		if(contBusy > this.maxBusy){
+			finished = false;
+		}
+	}
+	
+	this.contBusy = contBusy;
+	return finished;
 }
 
 function calculateSharedResources(contTask){

@@ -24,7 +24,7 @@ function drawFeasibilityResult(type, bResult, sumResult, upperResult){
 	div.innerHTML = text;
 }
 
-function drawUniprocessorResult(feasible, taskNumber, ordering, priority, deadline, results){
+function drawUniprocessorResult(feasible, taskNumber, busy, ordering, priority, deadline, results){
 	var div = document.getElementById("uniprocessor_results");
 	var text;
 	
@@ -34,25 +34,40 @@ function drawUniprocessorResult(feasible, taskNumber, ordering, priority, deadli
 		text = "<h3>The task set isn't feasible.</h3>";
 	}
 	
-	text += drawUniprocessorCalculations(taskNumber, ordering, priority, deadline, results);
+	text += drawUniprocessorCalculations(taskNumber, busy, ordering, priority, deadline, results);
 	
 	div.innerHTML = text;
 }
 
-function drawUniprocessorCalculations(taskNumber, ordering, priority, deadline, results){
+function drawUniprocessorCalculations(taskNumber, busy, ordering, priority, deadline, results){
 	var i;
 	var text;
+	var maxBusy = 10;
+	var contBusy;
 	
-	text = "<table><tr><th>Task</th><th>Priority</th><th>Result</br>R <= D</th></tr>";
+	if(busy == "No"){
+		text = "<table><tr><th>Task</th><th>Priority</th><th>Result</br>R <= D</th></tr>";
+	}else{
+		text = "<table><tr><th>Task</th><th>Priority</th><th>Result</br>R <= D*Q</th></tr>";
+	}
 	
 	for(i = 1; (i - 1) < taskNumber; i++){
 		text += "<tr>" +
 				"<td>T"+ordering[i]+"</td>" +
 				"<td>"+priority[i]+"</td>";
-		if(results[i] <= deadline[i]){
-			text += "<td>"+results[i]+" <= "+deadline[i]+"</td>";
+		if(busy == "No"){
+			if(results[i] <= deadline[i]){
+				text += "<td>"+results[i]+" <= "+deadline[i]+"</td>";
+			}else{
+				text += "<td>This task is not schedulable</td>";
+			}
 		}else{
-			text += "<td>This task is not schedulable</td>";
+			if(results[i] <= deadline[i]*maxBusy){
+				contBusy = Math.ceil(results[i]/deadline[i]);
+				text += "<td>"+results[i]+" <= "+deadline[i]+"*"+contBusy+"</td>";
+			}else{
+				text += "<td>This task is not schedulable</td>";
+			}
 		}
 		text += "</tr>";
 	}
