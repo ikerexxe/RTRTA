@@ -139,6 +139,7 @@ function explicitOrdering(priority){
 function calculations(){
 	var taskNumber = this.taskNumber;
 	var period = this.period;
+	var deadline = this.deadline;
 	var results = new Array(taskNumber);
 	var feasible = true;
 	
