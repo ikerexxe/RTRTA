@@ -169,17 +169,17 @@ function wCalculations(contTask){
 		B = this.calculateSharedResources(contTask);
 	}
 	
-	w[0] = parseInt(execTime[contTask]);
+	w[i] = parseInt(execTime[contTask]);
 	do{
 		i++;
 		w[i] = parseInt(execTime[contTask]) + B;
 		for(j = 1 ; j < contTask; j++){
 			w[i] += parseInt(Math.ceil(w[i-1]/period[j]) * execTime[j]);
 		}
-		if(w[i] > period[i]){
+		if(w[i] > period[contTask]){
 			w[i] = -1;
 		}
-	}while((w[i] != w[i-1]) && (w[i] <= period[i]));
+	}while((w[i] != w[i-1]) && (w[i] <= period[contTask]));
 	
 	return w[i];
 }
@@ -195,13 +195,13 @@ function calculateSharedResources(contTask){
 	var blocking = false;
 	var tmp;
 	
-	if(taskNumber > resourcesNumber){
-		maxArray = new Array(taskNumber);
-	}else{
-		maxArray = new Array(resourcesNumber);
-	}
-	
 	if(resources == "PIP"){
+		if(taskNumber > resourcesNumber){
+			maxArray = new Array(taskNumber);
+		}else{
+			maxArray = new Array(resourcesNumber);
+		}
+		
 		for(i = 1; (taskNumber - contTask) >= i; i++){
 			max = 0;
 			for(j = (contTask + 1); j < resourcesMatrix.length; j++){
@@ -250,6 +250,29 @@ function calculateSharedResources(contTask){
 		for(i = 1; i < maxArray.length; i++){
 			B += maxArray[i];
 		}
+	}else{
+		//These two loops are the same that in the previous condition
+		max = 0;
+		for(j = (contTask + 1); j < resourcesMatrix.length; j++){
+			for(k = 1; k < resourcesMatrix[j].length; k++){
+				if(resourcesMatrix[j][k] > max){
+					for(x = 1; x <= contTask; x++){
+						if(resourcesMatrix[x][k] != 0){
+							blocking = true;
+							break;
+						}
+					}
+					if(blocking){
+						max = parseInt(resourcesMatrix[j][k]);
+						maxPositionJ = j;
+						maxPositionK = k;
+						blocking = false;
+					}
+				}
+			}
+		}
+		
+		B = max;
 	}
 	
 	return B;
