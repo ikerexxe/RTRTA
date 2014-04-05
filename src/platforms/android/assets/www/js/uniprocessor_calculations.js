@@ -147,7 +147,7 @@ function calculations(){
 	}
 	
 	for(contTask = 1; (contTask - 1) < taskNumber; contTask++){
-		if(results[contTask] > period[contTask]){
+		if(results[contTask] > deadline[contTask]){
 			feasible = false;
 		}
 	}
@@ -160,6 +160,7 @@ function wCalculations(contTask){
 	var execTime = this.execTime;
 	var resources = this.resources;
 	var period = this.period;
+	var deadline = this.deadline;
 	var w = new Array(100);
 	var B = 0;
 	var i = 0;
@@ -176,10 +177,10 @@ function wCalculations(contTask){
 		for(j = 1 ; j < contTask; j++){
 			w[i] += parseInt(Math.ceil(w[i-1]/period[j]) * execTime[j]);
 		}
-		if(w[i] > period[contTask]){
+		if(w[i] > deadline[contTask]){
 			w[i] = -1;
 		}
-	}while((w[i] != w[i-1]) && (w[i] <= period[contTask]));
+	}while((w[i] != w[i-1]) && (w[i] <= deadline[contTask]));
 	
 	return w[i];
 }

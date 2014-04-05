@@ -24,7 +24,7 @@ function drawFeasibilityResult(type, bResult, sumResult, upperResult){
 	div.innerHTML = text;
 }
 
-function drawUniprocessorResult(feasible, taskNumber, ordering, priority, period, results){
+function drawUniprocessorResult(feasible, taskNumber, ordering, priority, deadline, results){
 	var div = document.getElementById("uniprocessor_results");
 	var text;
 	
@@ -34,12 +34,12 @@ function drawUniprocessorResult(feasible, taskNumber, ordering, priority, period
 		text = "<h3>The task set isn't feasible.</h3>";
 	}
 	
-	text += drawUniprocessorCalculations(taskNumber, ordering, priority, period, results);
+	text += drawUniprocessorCalculations(taskNumber, ordering, priority, deadline, results);
 	
 	div.innerHTML = text;
 }
 
-function drawUniprocessorCalculations(taskNumber, ordering, priority, period, results){
+function drawUniprocessorCalculations(taskNumber, ordering, priority, deadline, results){
 	var i;
 	var text;
 	
@@ -49,8 +49,8 @@ function drawUniprocessorCalculations(taskNumber, ordering, priority, period, re
 		text += "<tr>" +
 				"<td>T"+ordering[i]+"</td>" +
 				"<td>"+priority[i]+"</td>";
-		if(results[i] <= period[i]){
-			text += "<td>"+results[i]+" <= "+period[i]+"</td>";
+		if(results[i] <= deadline[i]){
+			text += "<td>"+results[i]+" <= "+deadline[i]+"</td>";
 		}else{
 			text += "<td>This task is not schedulable</td>";
 		}

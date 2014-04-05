@@ -19,7 +19,7 @@
 			var calc;
 			objSerialized = sessionStorage.getItem('uniprocessor');
 			calc = JSON.parse(objSerialized);
-			drawUniprocessorResult(calc.feasible, calc.taskNumber, calc.ordering, calc.priority, calc.period, calc.results);
+			drawUniprocessorResult(calc.feasible, calc.taskNumber, calc.ordering, calc.priority, calc.deadline, calc.results);
 		</script>
 		<div class="button">
 		    <form action="../index.html">
