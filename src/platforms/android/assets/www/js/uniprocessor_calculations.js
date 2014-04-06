@@ -177,6 +177,7 @@ function wCalculations(contTask){
 	var execTime = this.execTime;
 	var resources = this.resources;
 	var period = this.period;
+	var jitter = this.jitter;
 	var w = new Array(100);
 	var B = 0;
 	var i = 0;
@@ -197,9 +198,11 @@ function wCalculations(contTask){
 		i++;
 		w[i] = contBusy*parseInt(execTime[contTask]) + B;
 		for(j = 1 ; j < contTask; j++){
-			w[i] += parseInt(Math.ceil(w[i-1]/period[j]) * execTime[j]);
+			w[i] += parseInt(Math.ceil((w[i-1]+parseInt(jitter[j]))/period[j]) * execTime[j]);
 		}
 	}while(this.wFinished(w[i], w[i-1], contTask));
+	
+	w[i] += parseInt(jitter[contTask]);
 	
 	return w[i];
 }
