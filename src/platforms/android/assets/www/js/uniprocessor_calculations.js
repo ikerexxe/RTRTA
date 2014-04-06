@@ -266,9 +266,15 @@ function calculateSharedResources(contTask){
 							maxPositionJ = j;
 							maxPositionK = k;
 							blocking = false;
+						}else{
+							maxPositionJ = -1;
+							maxPositionK = -1;
 						}
 					}
 				}
+			}
+			if((maxPositionJ == -1) || (maxPositionK == -1)){
+				break;
 			}
 			maxArray[i] = max;
 			
@@ -315,12 +321,18 @@ function calculateSharedResources(contTask){
 						maxPositionJ = j;
 						maxPositionK = k;
 						blocking = false;
+					}else{
+						maxPositionJ = -1;
+						maxPositionK = -1;
 					}
 				}
 			}
 		}
-		
-		B = max;
+		if((maxPositionJ != -1) && (maxPositionK != -1)){
+			B = max;
+		}else{
+			b = 0;
+		}
 	}
 	
 	return B;
