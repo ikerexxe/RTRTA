@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <title>Uniprocessor response time analysis</title>
+<!--         <script type="text/javascript" src="../js/cordova.js"></script> -->
+        <script type="text/javascript" src="../js/uniprocessor_calculations.js"></script>
+    </head>
+    <body>
+    	<h1>Uniprocessor response time analysis</h1>
+    	<h2>Insert the information about the scheduling type</h2>
+    	<div class="type_table">
+	    	<table>
+	    		<tr>
+	    			<td>
+	    				<p>Scheduler type: </p>
+	    			</td>
+	    			<td>
+	    				<form>
+							<select class="checkbox" id="type">
+								<option value="RMA">RMA</option>
+								<option value="DMS">DMS</option>
+							</select>
+						</form>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<p>Shared resources: </p>
+	    			</td>
+	    			<td onchange="showNumber()">
+	    				<form>
+							<select id="resources">
+								<option value="No">No</option>
+								<option value="PIP">PIP</option>
+								<option value="PCP">PCP</option>
+								<option value="IPCP">IPCP</option>
+							</select>
+						</form>
+	    			</td>
+	    		</tr>
+				<tr>
+					<td>
+						<p>Number of resources: </p>
+					</td>
+					<td>
+						<form>
+							<select id="shared_resources_number" disabled="disabled">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+							</select>
+						</form>
+					</td>
+				</tr>
+	    		<tr>
+	    			<td>
+	    				<p class="busy">Busy period: </p>
+	    			</td>
+	    			<td>
+	    				<form>
+							<select id="busy">
+								<option value="No">No</option>
+								<option value="Yes">Yes</option>
+							</select>
+						</form>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>
+	    				<p>Number of tasks: </p>
+	    			</td>
+	    			<td>
+	    				<input class="text" id="taskNumber" type="number" onclick="this.select()" value="0">
+	    			</td>
+	    		</tr>
+	    	</table>
+    	</div>
+    	<div class="button">
+  		    <form onclick="setData()" action="uniprocessor_tasks_information.html">
+				<input type="submit" value="Next">
+			</form>
+		</div>
+		<script type="text/javascript">
+			function setData(){
+				var tmp, type, priority, resources, busy, taskNumber, resourcesNumber;
+				tmp = document.getElementById("type");
+				type = tmp[tmp.selectedIndex].text;
+//				tmp = document.getElementById("priority");
+//				priority = tmp[tmp.selectedIndex].text;
+				tmp = document.getElementById("resources");
+				resources = tmp[tmp.selectedIndex].text;
+				tmp = document.getElementById("busy");
+				busy = tmp[tmp.selectedIndex].text;
+				taskNumber = document.getElementById("taskNumber").value;
+				tmp = document.getElementById("shared_resources_number");
+				resourcesNumber = tmp[tmp.selectedIndex].text;
+				
+				var calc = new UniprocessorCalculations(type, priority, resources, busy, taskNumber, resourcesNumber);
+				objSerialized = JSON.stringify(calc);
+				sessionStorage.setItem('uniprocessor', objSerialized);
+			}
+			
+			function showNumber(){
+				var tmp, ifResources, showResources;
+				
+				tmp = document.getElementById("resources");
+				ifResources = tmp[tmp.selectedIndex].text;
+				
+				showResources = document.getElementById("shared_resources_number");
+				
+				if (ifResources == "No")
+				{
+					showResources.disabled=true;
+				}else{
+					showResources.disabled=false;
+				}
+			}
+		</script>
+    </body>
+</html>

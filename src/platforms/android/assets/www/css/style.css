@@ -1,3 +1,4 @@
+/* Regular text */
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -45,40 +46,14 @@ p {
     margin:0px;
     overflow:visible;
     padding-top:5%;
-    text-align:center;
+    text-align: left;
 }
 
-table, th, td
-{
-	border: 1px solid MediumBlue;
-}
-
-table
-{
-	border-collapse: collapse;
-}
-
-th
-{
-	background-color: MediumBlue;
-	color: white;
-}
+/* Buttons */
 
 .button {
 	text-align:center;
 	margin: 5%;
-}
-
-form{
-	padding-top: 3%;
-}
-
-input{
-	background-color: #d5d1d1;
-	border-color: white;
-	border-style: solid;
-	height: 30px;
-	width: 150px;
 }
 
 input[type=submit]{
@@ -89,36 +64,86 @@ input[type=submit]{
 	color: white;
 }
 
+/* Forms */
+
+form{
+	padding-top: 3%;
+}
+
+/* Text areas */
+
+input{
+	background-color: #d5d1d1;
+	border-color: white;
+	border-style: solid;
+	height: 30px;
+	width: 200px;
+}
+
 .text{
 	background-color: #eaeaea;
 	text-align: right;
 	height: 90%;
-	width: 50px;
+	width: 67px;
 }
 
-.feasibility_type{
+.text_task_information{
+	background-color: #eaeaea;
+	text-align: right;
+	height: 90%;
+	width: 35px;
+}
+
+/* Checkbuttons */
+
+select{
+	width: 70px;
+}
+
+/* Tables in general */
+
+table, th, td
+{
+	border: 1px solid MediumBlue;
+}
+
+table
+{
+	margin-top: 2%;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+
+th
+{
+	background-color: MediumBlue;
+	color: white;
+}
+
+.type_table, .task_set_table{
 	margin-top: 2%;
 }
 
-.feasibility_type table{
-	
-	margin: 0 auto;
-	text-align: left;
-}
+/* Type tables*/
 
-.feasibility_type table, td
+.type_table table, td
 {
 	border: none;
 }
 
-.feasibility_table{
-	margin-top: 2%;
-}
+/* Task set tables */
 
-.feasibility_table table{
-	margin: 0 auto;
+.task_set_table table{
 	text-align: right;
 }
+
+/* Exception tables */
+
+.instances{
+	width: 200px;
+}
+
+/* Do not touch */
 
 @keyframes fade {
     from { opacity: 1.0; }

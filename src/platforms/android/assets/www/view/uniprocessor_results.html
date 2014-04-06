@@ -6,20 +6,20 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
-        <title>Feasibility analysis result</title>
+        <title>Uniprocessor response time analysis</title>
 <!--         <script type="text/javascript" src="../js/cordova.js"></script> -->
-        <script type="text/javascript" src="../js/feasibility_calculations.js"></script>
+        <script type="text/javascript" src="../js/uniprocessor_calculations.js"></script>
         <script type="text/javascript" src="../js/results.js"></script>
     </head>
     <body>
-    	<h1>Feasibility analysis result</h1>
-    	<div class="feasibility_result" id="feasibility_results">
+    	<h1>Uniprocessor response time analysis</h1>
+    	<div class="uniprocessor_result" id="uniprocessor_results">
     	</div>
     	<script type="text/javascript">
 			var calc;
-			objSerialized = sessionStorage.getItem('feasibility');
+			objSerialized = sessionStorage.getItem('uniprocessor');
 			calc = JSON.parse(objSerialized);
-			drawFeasibilityResult(calc.type, calc.bResult, calc.sumResult, calc.upperResult);
+			drawUniprocessorResult(calc.feasible, calc.taskNumber, calc.busy, calc.ordering, calc.priority, calc.deadline, calc.results);
 		</script>
 		<div class="button">
 		    <form action="../index.html">
