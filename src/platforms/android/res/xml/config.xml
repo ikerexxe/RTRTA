@@ -11,6 +11,6 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
-    <content src="index.html" />
+    <content src="view/index.html" />
     <access origin="*" />
 </widget>
