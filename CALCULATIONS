@@ -14,9 +14,9 @@ where Ci is the worst-case execution time for task i and Ti is the period of tas
 #Uniprocessor's response time analysis
 
 The second set of calculus that has been developed is the response time analysis for a set of tasks in a uniprocessor. In this case RMA and DMS scheduling algorithms have benn taken into account. The calculus are done iteratively using the following formula:
-Wi(n+1) = Ci + **SUMMATION**[Wi/Tj]*Cj
+Wi(n+1) = Ci + **SUMMATION**[(Wi+Jj)/Tj]*Cj
 
-where Ci is the worst-case execution time for task i, j is an index used to traverse the tasks which priority is higher than the one that is being calculated, Tj is the period of task j and Cj is the worst-case execution time for task j. In the first iteration Wi(0) is equal to Ci.
+where Ci is the worst-case execution time for task i, j is an index used to traverse the tasks which priority is higher than the one that is being calculated, Jj is the release jitter for task j, Tj is the period of task j and Cj is the worst-case execution time for task j. In the first iteration Wi(0) is equal to Ci.
 As said before the calculus are done iteratively and they stop when Wi(n+1) is equal to Wi(n). When this condition is reached the response time can be calculated as follows:
 Ri = Wi(n)
 
@@ -26,7 +26,7 @@ Now, whether the task meets its deadline can be checked, ergo, Ri should be less
 
 Calculation of shared resources is an extension of the the previous model with the difference that it takes into account the execution time of the shared resources. Depending on the protocol being used this execution time varies. The calculus are done iteratively using the following formula:
 
-Wi(n+1) = Ci + Bi + **SUMMATION**[Wi/Tj]*Cj
+Wi(n+1) = Ci + Bi + **SUMMATION**[(Wi+Jj)/Tj]*Cj
 
 where Bi is the worst-case execution time for shared resources.
 
@@ -44,4 +44,4 @@ IPCP has the same properties as PCP regarding to blocking and response time calc
 
 ##Busy period
 Let’s assume tasks’ deadlines greater than their periods. Level i busy period is the maximum time for which a processor executes tasks of priority i or higher. The response instant of the q−th job of a task can be calculated by:
-Wi(q) = (q+1)*Ci + **SUMMATION**[Wi(q)/Tj]*Cj
+Wi(q) = (q+1)*Ci + **SUMMATION**[(Wi(q)+Jj)/Tj]*Cj
