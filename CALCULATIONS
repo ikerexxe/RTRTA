@@ -18,7 +18,7 @@ Wi(n+1) = Ci + **SUMMATION**[(Wi+Jj)/Tj]*Cj
 
 where Ci is the worst-case execution time for task i, j is an index used to traverse the tasks which priority is higher than the one that is being calculated, Jj is the release jitter for task j, Tj is the period of task j and Cj is the worst-case execution time for task j. In the first iteration Wi(0) is equal to Ci.
 As said before the calculus are done iteratively and they stop when Wi(n+1) is equal to Wi(n). When this condition is reached the response time can be calculated as follows:
-Ri = Wi(n)
+Ri = Wi(n) + Ji
 
 Now, whether the task meets its deadline can be checked, ergo, Ri should be less or equal to Di. If some of the tasks doesn't meet its deadline then the task set is not feasible under that order.
 
