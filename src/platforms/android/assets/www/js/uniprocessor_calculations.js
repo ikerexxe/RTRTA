@@ -1,6 +1,8 @@
 
 //Definitions
 var maxBusy = 10;
+var dmsIndex = 4;
+var rmaIndex = 5;
 
 //Global variables
 var type;
@@ -54,6 +56,7 @@ function UniprocessorCalculations(type, ifPriority, resources, busy, taskNumber,
 function setTasksInformation(){
 	var i, j;
 	var id;
+	var protocolIndex;
 	
 	if(resources != "No"){
 		resourcesMatrix = new Array(taskNumber);
@@ -63,19 +66,16 @@ function setTasksInformation(){
 	}
 	
 	if(type == "DMS"){
+		protocolIndex = dmsIndex;
 		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((i*(4+resourcesNumber))-(3+(resourcesNumber-1)));
-			period[i] = document.getElementById(id).value;
+			period[i] = getTaskInformation(i, protocolIndex, 2);
 		}
 		ordering = this.implicitOrdering(period);
 		
 		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((ordering[i]*(4+resourcesNumber))-(3+(resourcesNumber-1)));
-			period[i] = document.getElementById(id).value;
-			id = "uni"+((ordering[i]*(4+resourcesNumber))-(2+(resourcesNumber-1)));
-			execTime[i] = document.getElementById(id).value;
-			id = "uni"+((ordering[i]*(4+resourcesNumber))-(1+(resourcesNumber-1)));
-			jitter[i] = document.getElementById(id).value;
+			period[i] = getTaskInformation(ordering[i], protocolIndex, 2);
+			execTime[i] = getTaskInformation(ordering[i], protocolIndex, 1);
+			jitter[i] = getTaskInformation(ordering[i], protocolIndex, 0);
 			priority[i] = i;
 			deadline[i] = period[i];
 		}
@@ -83,35 +83,29 @@ function setTasksInformation(){
 		if(resources != "No"){
 			for (i = 1; (i-1) < taskNumber; i++){
 				for(j = 1; (j-1) < resourcesNumber; j++){
-					id = "uni"+((ordering[i]*(4+resourcesNumber))-((resourcesNumber-j)));
-					resourcesMatrix[i][j] = document.getElementById(id).value;
+					resourcesMatrix[i][j] = getTaskInformation(ordering[i], protocolIndex, 0-j);
 				}
 			}
 		}
 	}else{
+		protocolIndex = rmaIndex;
 		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((i*(5+resourcesNumber))-(2+(resourcesNumber-1)));
-			deadline[i] = document.getElementById(id).value;
+			deadline[i] = getTaskInformation(i, protocolIndex, 1);
 		}
 		ordering = this.implicitOrdering(deadline);
 		
 		for(i = 1; (i-1) < taskNumber; i++){
-			id = "uni"+((ordering[i]*(5+resourcesNumber))-(4+(resourcesNumber-1)));
-			period[i] = document.getElementById(id).value;
-			id = "uni"+((ordering[i]*(5+resourcesNumber))-(3+(resourcesNumber-1)));
-			execTime[i] = document.getElementById(id).value;
+			period[i] = getTaskInformation(ordering[i], protocolIndex, 3);
+			execTime[i] = getTaskInformation(ordering[i], protocolIndex, 2);
+			deadline[i] = getTaskInformation(ordering[i], protocolIndex, 1);
+			jitter[i] = getTaskInformation(ordering[i], protocolIndex, 0);
 			priority[i] = i;
-			id = "uni"+((ordering[i]*(5+resourcesNumber))-(2+(resourcesNumber-1)));
-			deadline[i] = document.getElementById(id).value;
-			id = "uni"+((ordering[i]*(5+resourcesNumber))-(1+(resourcesNumber-1)));
-			jitter[i] = document.getElementById(id).value;
 		}
 		
 		if(resources != "No"){
 			for (i = 1; (i-1) < taskNumber; i++){
 				for(j = 1; (j-1) < resourcesNumber; j++){
-					id = "uni"+((ordering[i]*(5+resourcesNumber))-((resourcesNumber-j)));
-					resourcesMatrix[i][j] = document.getElementById(id).value;
+					resourcesMatrix[i][j] = getTaskInformation(ordering[i], protocolIndex, 0-j);
 				}
 			}
 		}
@@ -127,6 +121,12 @@ function setTasksInformation(){
 	if(resources != "No"){
 		this.resourcesMatrix = resourcesMatrix;
 	}
+}
+
+function getTaskInformation(taskIndex, schedulerIndex, resourceIndex){
+	var id = "uni"+((taskIndex*(schedulerIndex+resourcesNumber))-(resourceIndex+resourcesNumber));
+
+	return document.getElementById(id).value;
 }
 
 function implicitOrdering(deadline){
