@@ -1,12 +1,34 @@
 
-function UniprocessorCalculations(type, priority, resources, busy, taskNumber, resourcesNumber){
+//Definitions
+var maxBusy = 10;
+
+//Global variables
+var type;
+var ifPpriority;
+var taskNumber;
+var resources;
+var resourcesNumber;
+var resourcesMatrix;
+var busy;
+var ordering;
+var priority;
+var period;
+var execTime;
+var deadline;
+var jitter;
+var feasible;
+var results;
+
+
+function UniprocessorCalculations(type, ifPriority, resources, busy, taskNumber, resourcesNumber){
+	//Global variables
 	this.type = type;
-	this.priority = priority;
+	this.ifPriority = ifPriority;
 	this.resources = resources;
 	this.busy = busy;
 	this.taskNumber = taskNumber;
-	this.maxBusy = 10;
 	
+	//Functions
 	this.setTasksInformation = setTasksInformation;
 	this.implicitOrdering = implicitOrdering;
 	this.explicitOrdering = explicitOrdering;
@@ -14,6 +36,13 @@ function UniprocessorCalculations(type, priority, resources, busy, taskNumber, r
 	this.wCalculations = wCalculations;
 	this.wFinished = wFinished;
 	this.calculateSharedResources = calculateSharedResources;
+	
+	priority = new Array(taskNumber);
+	period = new Array(taskNumber);
+	execTime = new Array(taskNumber);
+	deadline = new Array(taskNumber);
+	jitter = new Array(taskNumber);
+	results = new Array(taskNumber);
 	
 	if(resources != "No"){
 		this.resourcesNumber = parseInt(resourcesNumber);
@@ -23,22 +52,11 @@ function UniprocessorCalculations(type, priority, resources, busy, taskNumber, r
 }
 
 function setTasksInformation(){
-	var taskNumber = this.taskNumber;
-	var ifPriority = this.priority;
-	var type = this.type;
-	var resources = this.resources;
-	var resourcesNumber = this.resourcesNumber;
-	var priority = new Array(taskNumber);
-	var period = new Array(taskNumber);
-	var execTime = new Array(taskNumber);
-	var deadline = new Array(taskNumber);
-	var jitter = new Array(taskNumber);
-	var ordering;
 	var i, j;
 	var id;
 	
 	if(resources != "No"){
-		var resourcesMatrix = new Array(taskNumber);
+		resourcesMatrix = new Array(taskNumber);
 		for (i = 1; (i-1) < taskNumber; i++){
 			resourcesMatrix[i] = new Array(resourcesNumber);
 		}
@@ -112,7 +130,6 @@ function setTasksInformation(){
 }
 
 function implicitOrdering(deadline){
-	var taskNumber = this.taskNumber;
 	var ordering = new Array(taskNumber);
 	var i, j, z;
 	
@@ -129,7 +146,6 @@ function implicitOrdering(deadline){
 }
 
 function explicitOrdering(priority){
-	var taskNumber = this.taskNumber;
 	var ordering = new Array(taskNumber);
 	var i, j, z;
 	
@@ -146,11 +162,6 @@ function explicitOrdering(priority){
 }
 
 function calculations(){
-	var taskNumber = this.taskNumber;
-	var period = this.period;
-	var deadline = this.deadline;
-	var busy = this.busy;
-	var results = new Array(taskNumber);
 	var feasible = true;
 	
 	for(contTask = 1; (contTask - 1) < taskNumber; contTask++){
@@ -163,7 +174,7 @@ function calculations(){
 				feasible = false;
 			}
 		}else{
-			if(results[contTask] > deadline[contTask]*this.maxBusy){
+			if(results[contTask] > deadline[contTask] * maxBusy){
 				feasible = false;
 			}
 		}
@@ -174,10 +185,6 @@ function calculations(){
 }
 
 function wCalculations(contTask){
-	var execTime = this.execTime;
-	var resources = this.resources;
-	var period = this.period;
-	var jitter = this.jitter;
 	var w = new Array(100);
 	var B = 0;
 	var i = 0;
@@ -188,7 +195,7 @@ function wCalculations(contTask){
 		B = this.calculateSharedResources(contTask);
 	}
 	
-	if(this.busy){
+	if(busy){
 		this.contBusy = 1;
 	}
 	
@@ -208,7 +215,6 @@ function wCalculations(contTask){
 }
 
 function wFinished(w, w_previous, contTask){
-	var deadline = this.deadline;
 	var contBusy = this.contBusy;
 	var finished = false;
 	
@@ -223,7 +229,7 @@ function wFinished(w, w_previous, contTask){
 		if(w > deadline[contTask]*contBusy){
 			contBusy++;
 		}
-		if(contBusy > this.maxBusy){
+		if(contBusy > maxBusy){
 			finished = false;
 		}
 	}
@@ -233,9 +239,6 @@ function wFinished(w, w_previous, contTask){
 }
 
 function calculateSharedResources(contTask){
-	var taskNumber = this.taskNumber;
-	var resources = this.resources;
-	var resourcesNumber = this.resourcesNumber;
 	var resourcesMatrix = this.resourcesMatrix.slice();
 	var B = 0;
 	var i, j, k, x, y;
