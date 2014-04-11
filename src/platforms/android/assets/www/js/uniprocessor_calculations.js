@@ -20,6 +20,8 @@ var deadline;
 var jitter;
 var feasible;
 var results;
+var maxPositionTask, maxPositionResource;
+var localResourcesMatrix;
 
 
 function UniprocessorCalculations(type, ifPriority, resources, busy, taskNumber, resourcesNumber){
@@ -239,12 +241,13 @@ function wFinished(w, w_previous, contTask){
 }
 
 function calculateSharedResources(contTask){
-	var resourcesMatrix = this.resourcesMatrix.slice();
 	var B = 0;
 	var i, j, k, x, y;
-	var max, maxPositionJ, maxPositionK, maxArray;
+	var max, maxArray;
 	var blocking = false;
 	var tmp;
+	
+	localResourcesMatrix = this.resourcesMatrix.slice();
 	
 	if(resources == "PIP"){
 		if(taskNumber > resourcesNumber){
@@ -254,84 +257,41 @@ function calculateSharedResources(contTask){
 		}
 		
 		for(i = 1; (taskNumber - contTask) >= i; i++){
-			max = 0;
-			for(j = (contTask + 1); j < resourcesMatrix.length; j++){
-				for(k = 1; k < resourcesMatrix[j].length; k++){
-					if(resourcesMatrix[j][k] > max){
-						for(x = 1; x <= contTask; x++){
-							if(resourcesMatrix[x][k] != 0){
-								blocking = true;
-								break;
-							}
-						}
-						if(blocking){
-							max = parseInt(resourcesMatrix[j][k]);
-							maxPositionJ = j;
-							maxPositionK = k;
-							blocking = false;
-						}else{
-							maxPositionJ = -1;
-							maxPositionK = -1;
-						}
-					}
-				}
-			}
-			if((maxPositionJ == -1) || (maxPositionK == -1)){
+			max = findMaxResource(contTask);
+			if((maxPositionTask == -1) || (maxPositionResource == -1)){
 				break;
 			}
 			maxArray[i] = max;
 			
-			tmp = new Array(resourcesMatrix.length - 1);
-			for(x = 1; x < (resourcesMatrix.length - 1); x++){
-				tmp[x] = new Array(resourcesMatrix[x].length - 1);
+			tmp = new Array(localResourcesMatrix.length - 1);
+			for(x = 1; x < (localResourcesMatrix.length - 1); x++){
+				tmp[x] = new Array(localResourcesMatrix[x].length - 1);
 			}
 			
 			x = 1;
 			y = 1;
-			for(j = 1; j < resourcesMatrix.length; j++){
-				for(k = 1; k < resourcesMatrix[j].length; k++){
-					if(j != maxPositionJ && k != maxPositionK){
-						tmp[x][y] = resourcesMatrix[j][k];
+			for(j = 1; j < localResourcesMatrix.length; j++){
+				for(k = 1; k < localResourcesMatrix[j].length; k++){
+					if(j != maxPositionTask && k != maxPositionResource){
+						tmp[x][y] = localResourcesMatrix[j][k];
 						y++;
 					}
 				}
-				if(j != maxPositionJ){
+				if(j != maxPositionTask){
 					x++;
 					y = 1;
 				}
 			}
 			
-			resourcesMatrix = tmp;
+			localResourcesMatrix = tmp;
 		}
 		
 		for(i = 1; i < maxArray.length; i++){
 			B += maxArray[i];
 		}
 	}else{
-		//These two loops are the same that in the previous condition
-		max = 0;
-		for(j = (contTask + 1); j < resourcesMatrix.length; j++){
-			for(k = 1; k < resourcesMatrix[j].length; k++){
-				if(resourcesMatrix[j][k] > max){
-					for(x = 1; x <= contTask; x++){
-						if(resourcesMatrix[x][k] != 0){
-							blocking = true;
-							break;
-						}
-					}
-					if(blocking){
-						max = parseInt(resourcesMatrix[j][k]);
-						maxPositionJ = j;
-						maxPositionK = k;
-						blocking = false;
-					}else{
-						maxPositionJ = -1;
-						maxPositionK = -1;
-					}
-				}
-			}
-		}
-		if((maxPositionJ != -1) && (maxPositionK != -1)){
+		max = findMaxResource(contTask);
+		if((maxPositionTask != -1) && (maxPositionResource != -1)){
 			B = max;
 		}else{
 			b = 0;
@@ -339,4 +299,33 @@ function calculateSharedResources(contTask){
 	}
 	
 	return B;
+}
+
+function findMaxResource(contTask){
+	var max = 0;
+	var indexTask, indexResource;
+	
+	for(indexTask = (contTask + 1); indexTask < localResourcesMatrix.length; indexTask++){
+		for(indexResource = 1; indexResource < localResourcesMatrix[indexTask].length; indexResource++){
+			if(localResourcesMatrix[indexTask][indexResource] > max){
+				for(x = 1; x <= contTask; x++){
+					if(localResourcesMatrix[x][indexResource] != 0){
+						blocking = true;
+						break;
+					}
+				}
+				if(blocking){
+					max = parseInt(localResourcesMatrix[indexTask][indexResource]);
+					maxPositionTask = indexTask;
+					maxPositionResource = indexResource;
+					blocking = false;
+				}else{
+					maxPositionTask = -1;
+					maxPositionResource = -1;
+				}
+			}
+		}
+	}
+	
+	return max;
 }
