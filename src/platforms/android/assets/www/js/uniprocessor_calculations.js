@@ -35,7 +35,6 @@ function UniprocessorCalculations(type, ifPriority, resources, busy, taskNumber,
 	//Functions
 	this.setTasksInformation = setTasksInformation;
 	this.implicitOrdering = implicitOrdering;
-	this.explicitOrdering = explicitOrdering;
 	this.calculations = calculations;
 	this.wCalculations = wCalculations;
 	this.wFinished = wFinished;
@@ -139,22 +138,6 @@ function implicitOrdering(deadline){
 			if(deadline[indexTask] == cont){
 				ordering[indexOrdering] = indexTask;
 				indexOrdering++;
-			}
-		}
-	}
-	
-	return ordering;
-}
-
-function explicitOrdering(priority){
-	var ordering = new Array(taskNumber);
-	var i, j, z;
-	
-	for(i = 1, z = 1; (i - 1) < 100; i++){
-		for(j = 1; (j - 1) < taskNumber; j++){
-			if(priority[j] == i){
-				ordering[z] = j;
-				z++;
 			}
 		}
 	}
