@@ -56,58 +56,57 @@ function UniprocessorCalculations(type, ifPriority, resources, busy, taskNumber,
 }
 
 function setTasksInformation(){
-	var i, j;
-	var id;
+	var indexTask, indexResource;
 	var protocolIndex;
 	
 	if(resources != "No"){
 		resourcesMatrix = new Array(taskNumber);
-		for (i = 1; (i-1) < taskNumber; i++){
-			resourcesMatrix[i] = new Array(resourcesNumber);
+		for (indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
+			resourcesMatrix[indexTask] = new Array(resourcesNumber);
 		}
 	}
 	
 	if(type == "DMS"){
 		protocolIndex = dmsIndex;
-		for(i = 1; (i-1) < taskNumber; i++){
-			period[i] = getTaskInformation(i, protocolIndex, 2);
+		for(indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
+			period[indexTask] = getTaskInformation(indexTask, protocolIndex, 2);
 		}
 		ordering = this.implicitOrdering(period);
 		
-		for(i = 1; (i-1) < taskNumber; i++){
-			period[i] = getTaskInformation(ordering[i], protocolIndex, 2);
-			execTime[i] = getTaskInformation(ordering[i], protocolIndex, 1);
-			jitter[i] = getTaskInformation(ordering[i], protocolIndex, 0);
-			priority[i] = i;
-			deadline[i] = period[i];
+		for(indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
+			period[indexTask] = getTaskInformation(ordering[indexTask], protocolIndex, 2);
+			execTime[indexTask] = getTaskInformation(ordering[indexTask], protocolIndex, 1);
+			jitter[indexTask] = getTaskInformation(ordering[indexTask], protocolIndex, 0);
+			priority[indexTask] = indexTask;
+			deadline[indexTask] = period[indexTask];
 		}
 		
 		if(resources != "No"){
-			for (i = 1; (i-1) < taskNumber; i++){
-				for(j = 1; (j-1) < resourcesNumber; j++){
-					resourcesMatrix[i][j] = getTaskInformation(ordering[i], protocolIndex, 0-j);
+			for (indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
+				for(indexResource = 1; (indexResource-1) < resourcesNumber; indexResource++){
+					resourcesMatrix[indexTask][indexResource] = getTaskInformation(ordering[indexTask], protocolIndex, 0-indexResource);
 				}
 			}
 		}
 	}else{
 		protocolIndex = rmaIndex;
-		for(i = 1; (i-1) < taskNumber; i++){
-			deadline[i] = getTaskInformation(i, protocolIndex, 1);
+		for(indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
+			deadline[indexTask] = getTaskInformation(indexTask, protocolIndex, 1);
 		}
 		ordering = this.implicitOrdering(deadline);
 		
-		for(i = 1; (i-1) < taskNumber; i++){
-			period[i] = getTaskInformation(ordering[i], protocolIndex, 3);
-			execTime[i] = getTaskInformation(ordering[i], protocolIndex, 2);
-			deadline[i] = getTaskInformation(ordering[i], protocolIndex, 1);
-			jitter[i] = getTaskInformation(ordering[i], protocolIndex, 0);
-			priority[i] = i;
+		for(indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
+			period[indexTask] = getTaskInformation(ordering[indexTask], protocolIndex, 3);
+			execTime[indexTask] = getTaskInformation(ordering[indexTask], protocolIndex, 2);
+			deadline[indexTask] = getTaskInformation(ordering[indexTask], protocolIndex, 1);
+			jitter[indexTask] = getTaskInformation(ordering[indexTask], protocolIndex, 0);
+			priority[indexTask] = indexTask;
 		}
 		
 		if(resources != "No"){
-			for (i = 1; (i-1) < taskNumber; i++){
-				for(j = 1; (j-1) < resourcesNumber; j++){
-					resourcesMatrix[i][j] = getTaskInformation(ordering[i], protocolIndex, 0-j);
+			for (indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
+				for(indexResource = 1; (indexResource-1) < resourcesNumber; indexResource++){
+					resourcesMatrix[indexTask][indexResource] = getTaskInformation(ordering[indexTask], protocolIndex, 0-indexResource);
 				}
 			}
 		}
@@ -133,13 +132,13 @@ function getTaskInformation(taskIndex, schedulerIndex, resourceIndex){
 
 function implicitOrdering(deadline){
 	var ordering = new Array(taskNumber);
-	var i, j, z;
+	var cont, indexTask, indexOrdering;
 	
-	for(i = 1, z = 1; (i - 1) < 100; i++){
-		for(j = 1; (j - 1) < taskNumber; j++){
-			if(deadline[j] == i){
-				ordering[z] = j;
-				z++;
+	for(cont = 1, indexOrdering = 1; (cont - 1) < 100; cont++){
+		for(indexTask = 1; (indexTask - 1) < taskNumber; indexTask++){
+			if(deadline[indexTask] == cont){
+				ordering[indexOrdering] = indexTask;
+				indexOrdering++;
 			}
 		}
 	}
@@ -189,8 +188,8 @@ function calculations(){
 function wCalculations(contTask){
 	var w = new Array(100);
 	var B = 0;
-	var i = 0;
-	var j;
+	var indexW = 0;
+	var indexTask;
 	var contBusy;
 	
 	if(resources != "No"){
@@ -201,19 +200,19 @@ function wCalculations(contTask){
 		this.contBusy = 1;
 	}
 	
-	w[i] = parseInt(execTime[contTask]);
+	w[indexW] = parseInt(execTime[contTask]);
 	do{
 		contBusy = this.contBusy;
-		i++;
-		w[i] = contBusy*parseInt(execTime[contTask]) + B;
-		for(j = 1 ; j < contTask; j++){
-			w[i] += parseInt(Math.ceil((w[i-1]+parseInt(jitter[j]))/period[j]) * execTime[j]);
+		indexW++;
+		w[indexW] = contBusy*parseInt(execTime[contTask]) + B;
+		for(indexTask = 1 ; indexTask < contTask; indexTask++){
+			w[indexW] += parseInt(Math.ceil((w[indexW-1]+parseInt(jitter[indexTask]))/period[indexTask]) * execTime[indexTask]);
 		}
-	}while(this.wFinished(w[i], w[i-1], contTask));
+	}while(this.wFinished(w[indexW], w[indexW-1], contTask));
 	
-	w[i] += parseInt(jitter[contTask]);
+	w[indexW] += parseInt(jitter[contTask]);
 	
-	return w[i];
+	return w[indexW];
 }
 
 function wFinished(w, w_previous, contTask){
@@ -242,10 +241,9 @@ function wFinished(w, w_previous, contTask){
 
 function calculateSharedResources(contTask){
 	var B = 0;
-	var i, j, k, x, y;
+	var cont, indexTask, indexResource, localTask, localResource;
 	var max, maxArray;
-	var blocking = false;
-	var tmp;
+	var tmpResources;
 	
 	localResourcesMatrix = this.resourcesMatrix.slice();
 	
@@ -263,31 +261,31 @@ function calculateSharedResources(contTask){
 			}
 			maxArray[i] = max;
 			
-			tmp = new Array(localResourcesMatrix.length - 1);
-			for(x = 1; x < (localResourcesMatrix.length - 1); x++){
-				tmp[x] = new Array(localResourcesMatrix[x].length - 1);
+			tmpResources = new Array(localResourcesMatrix.length - 1);
+			for(localTask = 1; localTask < (localResourcesMatrix.length - 1); localTask++){
+				tmpResources[localTask] = new Array(localResourcesMatrix[localTask].length - 1);
 			}
 			
-			x = 1;
-			y = 1;
-			for(j = 1; j < localResourcesMatrix.length; j++){
-				for(k = 1; k < localResourcesMatrix[j].length; k++){
-					if(j != maxPositionTask && k != maxPositionResource){
-						tmp[x][y] = localResourcesMatrix[j][k];
-						y++;
+			localTask = 1;
+			localResource = 1;
+			for(indexTask = 1; indexTask < localResourcesMatrix.length; indexTask++){
+				for(indexResource = 1; indexResource < localResourcesMatrix[indexTask].length; indexResource++){
+					if(indexTask != maxPositionTask && indexResource != maxPositionResource){
+						tmpResources[localTask][localResource] = localResourcesMatrix[indexTask][indexResource];
+						localResource++;
 					}
 				}
-				if(j != maxPositionTask){
-					x++;
-					y = 1;
+				if(indexTask != maxPositionTask){
+					localTask++;
+					localResource = 1;
 				}
 			}
 			
-			localResourcesMatrix = tmp;
+			localResourcesMatrix = tmpResources;
 		}
 		
-		for(i = 1; i < maxArray.length; i++){
-			B += maxArray[i];
+		for(cont = 1; cont < maxArray.length; cont++){
+			B += maxArray[cont];
 		}
 	}else{
 		max = findMaxResource(contTask);
