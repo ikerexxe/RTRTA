@@ -79,14 +79,6 @@ function setTasksInformation(){
 			priority[indexTask] = indexTask;
 			deadline[indexTask] = period[indexTask];
 		}
-		
-		if(resources != "No"){
-			for (indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
-				for(indexResource = 1; (indexResource-1) < resourcesNumber; indexResource++){
-					resourcesMatrix[indexTask][indexResource] = getTaskInformation(ordering[indexTask], protocolIndex, 0-indexResource);
-				}
-			}
-		}
 	}else{
 		protocolIndex = rmaIndex;
 		for(indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
@@ -101,12 +93,12 @@ function setTasksInformation(){
 			jitter[indexTask] = getTaskInformation(ordering[indexTask], protocolIndex, 0);
 			priority[indexTask] = indexTask;
 		}
-		
-		if(resources != "No"){
-			for (indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
-				for(indexResource = 1; (indexResource-1) < resourcesNumber; indexResource++){
-					resourcesMatrix[indexTask][indexResource] = getTaskInformation(ordering[indexTask], protocolIndex, 0-indexResource);
-				}
+	}
+	
+	if(resources != "No"){
+		for (indexTask = 1; (indexTask-1) < taskNumber; indexTask++){
+			for(indexResource = 1; (indexResource-1) < resourcesNumber; indexResource++){
+				resourcesMatrix[indexTask][indexResource] = getTaskInformation(ordering[indexTask], protocolIndex, 0-indexResource);
 			}
 		}
 	}
