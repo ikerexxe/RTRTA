@@ -1,17 +1,27 @@
 
+//Global variables
+var type;
+var taskNumber;
+var period;
+var execTime;
+
 function FeasibilityCalculations(type, taskNumber){
+	//Global variables
 	this.type = type;
 	this.taskNumber = taskNumber;
+	
+	//Functions
 	this.calculations = calculations;
 	this.rmaCalculations = rmaCalculations;
 	this.edfCalculations = edfCalculations;
 	this.summation = summation;
+	
+	period = new Array(taskNumber);
+	execTime = new Array(taskNumber);
 }
 
 function calculations(){
 	var taskNumber = this.taskNumber;
-	var period = new Array(taskNumber);
-	var execTime = new Array(taskNumber);
 	var i;
 	var id;
 	
@@ -62,8 +72,6 @@ function edfCalculations(){
 
 function summation(){
 	var taskNumber = this.taskNumber;
-	var period = this.period;
-	var execTime = this.execTime;
 	var i;
 	var result = 0;
 	
