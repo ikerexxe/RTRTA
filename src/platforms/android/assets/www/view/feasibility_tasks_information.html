@@ -14,44 +14,34 @@
     <body>
     	<h1>Feasibility analysis</h1>
     	<h2>Insert the information about the task set</h2>
-    	<div class="type_table">
-	    	<table>
-	    		<tr>
-	    			<td>
-	    				<p>Scheduler type: </p>
-	    			</td>
-	    			<td>
-	    				<form>
-							<select id="type">
-								<option value="RMA">RMA</option>
-								<option value="EDF">EDF</option>
-							</select>
-						</form>
-	    			</td>
-	    		</tr>
-	    		<tr>
-	    			<td>
-	    				<p>Number of tasks: </p>
-	    			</td>
-	    			<td>
-	    				<input class="text" id="taskNumber" type="number" onclick="this.select()" value="0">
-	    			</td>
-	    		</tr>
-	    	</table>
+    	<div class="task_set_table" id="feasibility_table">
+    		<script type="text/javascript">
+	    		var taskNumber;
+				var calc;
+				
+				objSerialized = sessionStorage.getItem('feasibility');
+				calc = JSON.parse(objSerialized);
+				taskNumber = calc.taskNumber;
+				
+ 				drawFeasibilityTable(taskNumber);
+    		</script>
     	</div>
     	<div class="button">
- 		    <form onclick="setData()" action="feasibility_tasks_information.html">
-				<input type="submit" value="Next">
+ 		    <form onclick="calculate()" action="feasibility_results.html">
+				<input type="submit" value="Calculate">
 			</form>
 		</div>
 		<script type="text/javascript">
-			function setData(){
-				var tmp, type, taskNumber;
-				tmp = document.getElementById("type");
-				type = tmp[tmp.selectedIndex].text;
-				taskNumber = document.getElementById("taskNumber").value;
+			function calculate(){
+				var calcOld;
+				var calc;
 				
-				var calc = new FeasibilityCalculations(type, taskNumber);
+				objSerialized = sessionStorage.getItem('feasibility');
+				calcOld = JSON.parse(objSerialized);
+				calc = new FeasibilityCalculations(calcOld.type, calcOld.taskNumber);
+				
+				calc.calculations();
+				
 				objSerialized = JSON.stringify(calc);
 				sessionStorage.setItem('feasibility', objSerialized);
 			}
