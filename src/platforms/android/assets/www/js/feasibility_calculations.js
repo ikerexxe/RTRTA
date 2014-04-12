@@ -22,16 +22,16 @@ function FeasibilityCalculations(type, taskNumber){
 
 function calculations(){
 	var taskNumber = this.taskNumber;
-	var i;
+	var index;
 	var id;
 	
-	for(i = 1; (i-1) < taskNumber; i++){
-		id = "fea"+((i*2)-1);
-		period[i] = document.getElementById(id).value;
+	for(index = 1; (index-1) < taskNumber; index++){
+		id = "fea"+((index*2)-1);
+		period[index] = document.getElementById(id).value;
 	}
-	for(i = 1; (i-1) < taskNumber; i++){
-		id = "fea"+((i*2));
-		execTime[i] = document.getElementById(id).value;
+	for(index = 1; (index-1) < taskNumber; index++){
+		id = "fea"+((index*2));
+		execTime[index] = document.getElementById(id).value;
 	}
 	
 	this.period = period;
@@ -72,11 +72,11 @@ function edfCalculations(){
 
 function summation(){
 	var taskNumber = this.taskNumber;
-	var i;
+	var index;
 	var result = 0;
 	
-	for(i = 1; (i-1) < taskNumber; i++){
-		result += execTime[i]/period[i];
+	for(index = 1; (index-1) < taskNumber; index++){
+		result += execTime[index]/period[index];
 	}
 	
 	this.sumResult = result;
